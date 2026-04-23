@@ -8,7 +8,7 @@ var selectedPageLoader=(type)=>{
           break;
 
           case "signup":
-            templateURL="templates/signup.htm";
+            templateURL="templates/newSignup.htm";
           loadTemplateData(templateURL,type);
           break;
 
