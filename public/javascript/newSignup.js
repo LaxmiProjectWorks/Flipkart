@@ -1,13 +1,14 @@
 let newUserSignup=()=>{
-    var username_newUser=document.querySelector("#username_signup");
-    var mail_newUser=document.querySelector("#mail_signup");
-    var contact_newUser=document.querySelector("#contact_signup");
-    var password_newUser=document.querySelector("#password_signup");
+    var username_newUser=document.querySelector("#username_signup").value;
+    var mail_newUser=document.querySelector("#mail_signup").value;
+    var contact_newUser=document.querySelector("#contact_signup").value;
+    console.log("Priting contact number: ",contact_newUser);
+    var password_newUser=document.querySelector("#password_signup").value;
 
     var newUserDetails={
         username:username_newUser,
         mail:mail_newUser,
-        conatct:contact_newUser,
+        contact:contact_newUser,
         password:password_newUser
     }
 
@@ -17,6 +18,13 @@ let newUserSignup=()=>{
         data:newUserDetails
     }).then(function(response){
         console.log(response);
+        document.querySelector(".signupResult").style.display="block";
+        if(response.data.msg=="Success")
+        {
+            document.querySelector(".signupResult").innerText="Registered successfully";
+        }else{
+            document.querySelector(".signupResult").innerText="Registration failed";
+        }
     }).catch(function(error){
         console.log(error);
     }).finally(function(){
