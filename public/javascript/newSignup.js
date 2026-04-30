@@ -2,7 +2,6 @@ let newUserSignup=()=>{
     var username_newUser=document.querySelector("#username_signup").value;
     var mail_newUser=document.querySelector("#mail_signup").value;
     var contact_newUser=document.querySelector("#contact_signup").value;
-    console.log("Priting contact number: ",contact_newUser);
     var password_newUser=document.querySelector("#password_signup").value;
 
     var newUserDetails={

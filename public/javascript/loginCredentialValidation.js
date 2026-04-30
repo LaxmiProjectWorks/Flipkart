@@ -22,12 +22,12 @@ var validateCredentials=()=>{
         data:loginDetails
     })
     .then(function(response){
-        console.log(response);
-        if(response.data.msg=="Fail"){
-            document.querySelector(".wrongCredentialsMsg").style.display = "block";
-        }else{
+        console.log("Printing response from login module: ",response);
+        if(response.data.msg=="Success"){
             document.querySelector(".wrongCredentialsMsg").style.display="none";
             selectedPageLoader("productsPage");
+        }else{
+            document.querySelector(".wrongCredentialsMsg").style.display = "block";
         }
     }).catch(function(error){
         console.log(error);
