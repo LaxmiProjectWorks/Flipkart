@@ -23,7 +23,7 @@ main {
 }
 
 main {
-    flex:1;
+    flex: 1;
 }
 
 .container {
@@ -55,7 +55,8 @@ li {
     border-radius: 10px;
 }
 
-.wrongCredentialsMsg,.signupResult {
+.wrongCredentialsMsg,
+.signupResult {
     display: none;
     text-align: center;
     color: red;
@@ -89,4 +90,22 @@ li {
     width: 100px;
     height: 150px;
 
+}
+
+.rating div {
+    background-image: url("../images/ratingStars_ImageSpriting.png");
+    height: 28px;
+    width: 28px;
+    /* border: 2px solid; */
+    background-size: 150px 150px;
+}
+
+.fullStar {
+    background-position: 210px 149px;
+    float: left;
+}
+
+.emptyStar {
+    background-position: 210px 100px;
+    float: left;
 }

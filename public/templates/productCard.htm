@@ -4,4 +4,11 @@
     <p class="category">Product Category: {{category}}</p>
     <p class="description">Description: {{description}}</p>
     <p class="price">Price: {{price}}</p>
+    <p class="rating">Rating: </p>
+
+    <script>
+        const rating={{rating.rate}};
+        console.log("Printing rating value: ",rating)
+        ratingStarGenerator("rating",rating);
+    </script>
 </div>
