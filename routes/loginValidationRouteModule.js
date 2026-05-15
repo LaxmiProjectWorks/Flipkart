@@ -9,7 +9,7 @@ router.post("/loginValidation", (req, res) => {
     console.log("I am loginValidation POST route/endpoint");
     console.log(req.body);
     var responseData = {};
-    getDBConnection(req.body.username,req.body.password).then((isValid) => {
+    authenticateUser(req.body.username,req.body.password).then((isValid) => {
         if (isValid) {
             responseData.msg = "Success";
         } else {
@@ -19,7 +19,7 @@ router.post("/loginValidation", (req, res) => {
     });
 });
 
-async function getDBConnection(username,password,isValid) {
+async function authenticateUser(username,password,isValid) {
     await client.connect();
     console.log("Connection established successfully.");
     var db = client.db("flipkart");

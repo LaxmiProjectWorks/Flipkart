@@ -18,15 +18,15 @@ let newUserSignup=()=>{
     }).then(function(response){
         console.log(response);
         document.querySelector(".signupResult").style.display="block";
-        if(response.data.msg=="Success")
+        if(response.data.msg=="DataInsertedIntoDB")
         {
             document.querySelector(".signupResult").innerText="Registered successfully";
-        }else{
-            document.querySelector(".signupResult").innerText="Registration failed";
+        }else if(response.data.msg=="MailIDExisting"){
+            document.querySelector(".signupResult").innerText="An account is already created with given mail ID. Please try register with another mail ID.";
         }
     }).catch(function(error){
         console.log(error);
     }).finally(function(){
-        console.log("New Signup request sent to backend");
+        console.log("New Signup process finished.");
     });
 }
