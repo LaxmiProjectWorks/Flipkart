@@ -23,9 +23,10 @@ var loadProductsData = () => {
 var showProductsData = () => {
     var productContainer= document.querySelector(".productsContainer");
     for(var i=0;i<productDetailsList.length;i++){
-        // if()
          var pTemplate= hbtemplate(productDetailsList[i]);
          productContainer.insertAdjacentHTML("beforeend", pTemplate);
+         var idVal= "rating_"+productDetailsList[i].id;
+        ratingStarGenerator(idVal,productDetailsList[i].rating.rate);
     }
 }
 
@@ -34,6 +35,7 @@ loadProductCardTemplate = () => {
         .then(function (response) {
             console.log(response);
             hbtemplate = Handlebars.compile(response.data);
+            
             //ratingStarGenerator("rating", response.data.rating.rate);
         }).catch(function (error) {
             console.log(error);

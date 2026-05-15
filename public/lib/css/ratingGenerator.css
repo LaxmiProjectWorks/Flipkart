@@ -1,0 +1,25 @@
+        ul,
+        ol {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .rating span {
+
+            background-image: url("../../images/ratingStars_ImageSpriting.png");
+            height: 28px;
+            width: 28px;
+            /* border: 2px solid; */
+            background-size: 150px 150px;
+        }
+
+        .fullStar {
+            background-position: 210px 149px;
+            float: left;
+        }
+
+        .emptyStar {
+            background-position: 210px 100px;
+            float: left;
+        }
