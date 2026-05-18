@@ -9,8 +9,6 @@ var loadProductsData = () => {
         //url: "https://fakestoreapi.com/products", // To get the data from the external service
         url:dataUrl,
     }).then(function (response) {
-        console.log("Printing response data length: ", response.data.length);
-        console.log(response);
         productDetailsList = response.data;
         showProductsData();
     }).catch(function (error) {

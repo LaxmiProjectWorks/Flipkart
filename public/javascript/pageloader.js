@@ -30,6 +30,7 @@ var loadTemplateData=(loginTemplateURL,type)=>{
         document.querySelector("main").innerHTML=response.data;
         if(type=="productsPage"){
             loadProductsData();
+            loadProductCategories();
         }
     }).catch(function(error){
         console.log(error);
