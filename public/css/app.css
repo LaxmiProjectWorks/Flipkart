@@ -1,3 +1,4 @@
+
 * {
     padding: 0px;
     margin: 0px;
@@ -92,20 +93,5 @@ li {
     width: 100px;
     height: 150px;
 
-}
-
-.rating {
-    display: block;
-    margin-top: 6px;
-}
-
-.fullStar {
-    color: gold;
-    font-size: 18px;
-}
-
-.emptyStar {
-    color: lightgray;
-    font-size: 18px;
 }
 
