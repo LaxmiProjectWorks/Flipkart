@@ -3,7 +3,7 @@ var selectedPageLoader=(type)=>{
     var templateURL;
     switch(type){
         case "login":
-            templateURL="templates/login.htm";
+            templateURL="templates/adminPage.htm";
           loadTemplateData(templateURL,type);
           break;
 

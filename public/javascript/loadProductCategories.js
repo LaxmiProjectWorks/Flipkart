@@ -1,13 +1,13 @@
 var productCategoriesTemplate;
 var productCategoriesList = [];
-var dataUrl = "/getProductCategories/categories";
+var categoryDataUrl = "/getProductCategories/categories";
 
 var loadProductCategories = () => {
     axios({
         method: "POST",
-        url: dataUrl,
+        url: categoryDataUrl,
     }).then(function (response) {
-        console.log("fetching categories response: ", response);
+        console.log("loadProductCategories response printing: ",response.data);
         productCategoriesList = response.data;
         showCategories();
     }).catch(function (error) {
