@@ -17,7 +17,7 @@ let newUserSignup=()=>{
         data:newUserDetails
     }).then(function(response){
         console.log(response);
-        document.querySelector(".signupResult").style.display="block";
+        document.querySelector(".signupResult").style.visibility="visible";
         if(response.data.msg=="DataInsertedIntoDB")
         {
             document.querySelector(".signupResult").innerText="Registered successfully";

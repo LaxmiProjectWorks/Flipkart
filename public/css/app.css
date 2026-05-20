@@ -27,14 +27,6 @@ main {
     flex: 1;
 }
 
-.signup-form-container {
-    margin: auto;
-    width: 400px;
-    border: 2px solid;
-    margin-top: 10px;
-    border-radius: 10px;
-}
-
 .admin-form-container {
     margin: auto;
     width: 400px;
@@ -42,14 +34,6 @@ main {
     margin-top: 10px;
     border-radius: 10px;
 }
-
-/* .login-form-container{
-    margin: auto;
-    width: 400px;
-    border: 2px solid;
-    margin-top: 10px;
-    border-radius: 10px;
-} */
 
 h4 {
     text-align: center;
@@ -72,7 +56,6 @@ li {
     border-radius: 10px;
 }
 
-.wrongCredentialsMsg,
 .productInsertionStatus,
 .signupResult {
     display: none;
@@ -224,8 +207,254 @@ li {
 
 /* ✅ ERROR MESSAGE */
 .login-form-container .wrongCredentialsMsg {
+    visibility:hidden;
     color: red;
     font-size: 14px;
     text-align: center;
 }
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* ✅ SIGNUP CARD (Flipkart style) */
+.signup-form-container {
+    width: 430px;
+    margin: auto;
+    margin-top: 40px;
 
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: none;
+}
+
+/* ✅ TITLE */
+.signup-form-container h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #212121;
+}
+
+/* ✅ GRID LAYOUT (IMPORTANT - must come early) */
+.signup-form-container ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 15px;
+}
+
+/* ✅ EACH FIELD */
+.signup-form-container ul li {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin: 0;
+    padding: 5px;
+}
+
+/* ✅ FULL WIDTH ELEMENTS */
+.signup-form-container ul li:nth-child(5),  /* Register button */
+.signup-form-container ul li:nth-child(6),  /* Login link */
+.signup-form-container ul li:nth-child(7) { /* Message */
+    grid-column: span 2;
+}
+
+/* ✅ INPUT FIELDS */
+.signup-form-container input[type="text"],
+.signup-form-container input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* ✅ INPUT FOCUS */
+.signup-form-container input:focus {
+    border-color: #2874f0;
+    box-shadow: 0 0 2px #2874f0;
+}
+
+/* ✅ REGISTER BUTTON */
+.signup-form-container button {
+    width: 200px;
+    margin: 10px auto;
+
+    padding: 10px;
+    background-color: #fb641b;
+    color: white;
+
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signup-form-container button:hover {
+    background-color: #e35c16;
+}
+
+/* ✅ LOGIN LINK CENTER */
+.signup-form-container ul li:nth-child(6) {
+    text-align: center;
+}
+
+/* ✅ LINK STYLE */
+.signup-form-container a {
+    font-size: 13px;
+    color: #2874f0;
+    text-decoration: none;
+}
+
+.signup-form-container a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ RESULT MESSAGE (NO JUMP ✅) */
+.signup-form-container .signupResult {
+    height: 20px;
+    display: block;
+    visibility: hidden;
+
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ✅ RESULT COLORS */
+.signup-form-container .signupResult.success {
+    color: green;
+}
+
+.signup-form-container .signupResult.error {
+    color: red;
+}
+/* +++++++++++++++++++++++++++++++++++++++++++++ */
+/* ✅ ADMIN CARD (FINAL COMPACT) */
+.admin-form-container {
+    width: 520px;
+    margin: auto;
+    margin-top: 20px;
+
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: none;
+}
+
+/* ✅ TITLE */
+.admin-form-container h4 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #212121;
+}
+
+/* ✅ GRID LAYOUT */
+.admin-form-container ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px 10px;   /* ✅ reduced for compactness */
+}
+
+/* ✅ EACH FIELD */
+.admin-form-container ul li {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin: 0;
+    padding: 3px;
+}
+
+/* ✅ DESCRIPTION (bigger but controlled) */
+.admin-form-container ul li:nth-child(5) {
+    grid-column: span 2;
+}
+
+/* ✅ FULL WIDTH ELEMENTS */
+.admin-form-container ul li:nth-child(6),
+.admin-form-container ul li:nth-child(7),
+.admin-form-container ul li:nth-child(8),
+.admin-form-container ul li:nth-child(9) {
+    grid-column: span 3;
+}
+
+/* ✅ INPUTS */
+.admin-form-container input,
+.admin-form-container select,
+.admin-form-container textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 3px;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* ✅ INPUT FOCUS */
+.admin-form-container input:focus,
+.admin-form-container select:focus,
+.admin-form-container textarea:focus {
+    border-color: #2874f0;
+    box-shadow: 0 0 2px #2874f0;
+}
+
+/* ✅ TEXTAREA SMALLER */
+.admin-form-container textarea {
+    height: 55px;  /* ✅ slightly reduced */
+    resize: none;
+}
+
+/* ✅ BUTTON + LINKS IN SAME ROW */
+.admin-form-container ul li:nth-child(7) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ✅ BUTTON STYLE */
+.admin-form-container button {
+    padding: 7px 15px;
+    background-color: #fb641b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.admin-form-container button:hover {
+    background-color: #e35c16;
+}
+
+/* ✅ LINKS INLINE (SAME ROW AS BUTTON) */
+.admin-form-container ul li:nth-child(7) a {
+    font-size: 13px;
+    color: #2874f0;
+    text-decoration: none;
+}
+
+.admin-form-container ul li:nth-child(7) a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ STATUS MESSAGE */
+.admin-form-container .productInsertionStatus {
+    height: 16px;
+    font-size: 13px;
+    text-align: center;
+    visibility: hidden;
+}
+
+/* ✅ OPTIONAL COLORS */
+.admin-form-container .productInsertionStatus.success {
+    color: green;
+}
+
+.admin-form-container .productInsertionStatus.error {
+    color: red;
+}

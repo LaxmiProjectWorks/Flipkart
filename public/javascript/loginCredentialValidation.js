@@ -24,7 +24,7 @@ var validateCredentials=()=>{
     .then(function(response){
         console.log("Printing response from login module: ",response);
         if(response.data.msg=="Success"){
-            document.querySelector(".wrongCredentialsMsg").style.display="none";
+            document.querySelector(".wrongCredentialsMsg").style.visibility="hidden";
             
             if(response.data.userType=="customer"){
                 selectedPageLoader("productsPage");
@@ -33,7 +33,7 @@ var validateCredentials=()=>{
                 selectedPageLoader("adminPage");
             }
         }else{
-            document.querySelector(".wrongCredentialsMsg").style.display = "block";
+            document.querySelector(".wrongCredentialsMsg").style.visibility = "visible";
         }
     }).catch(function(error){
         console.log(error);
