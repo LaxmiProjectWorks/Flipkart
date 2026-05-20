@@ -3,7 +3,7 @@ var selectedPageLoader=(type)=>{
     var templateURL;
     switch(type){
         case "login":
-            templateURL="templates/adminPage.htm";
+            templateURL="templates/login.htm";
           loadTemplateData(templateURL,type);
           break;
 
@@ -19,6 +19,11 @@ var selectedPageLoader=(type)=>{
 
           case "productsPage":
             templateURL="templates/productDetails.htm"
+            loadTemplateData(templateURL,type);
+            break;
+
+          case "adminPage":
+            templateURL="templates/adminPage.htm"
             loadTemplateData(templateURL,type);
             break;
     }

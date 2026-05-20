@@ -10,6 +10,7 @@ var loginValidationRouter=require("./routes/loginValidationRouteModule");
 var newSignUpRouter=require("./routes/newSignupRouteModule")
 var getProductDetailsRouter= require("./routes/getProductDetailsRouteModule");
 var getProductCategoriesRouter= require("./routes/getProductCategoriesRouteModule")
+var insertNewProductsDataIntoDB= require("./routes/insertNewProductsDataIntoDBRouteModule");
 
 var app = express();
 
@@ -23,12 +24,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//You must expose the folder as static in app.js 
+app.use('/newProductUploadImages', express.static(path.join(__dirname, 'newProductUploadImages')));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/validateLoginCredentials",loginValidationRouter);
 app.use("/newUserRegistration",newSignUpRouter);
 app.use("/getProductDetails",getProductDetailsRouter);
 app.use("/getProductCategories",getProductCategoriesRouter);
+app.use("/insertNewProducts",insertNewProductsDataIntoDB);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

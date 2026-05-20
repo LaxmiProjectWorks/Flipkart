@@ -4,32 +4,42 @@ var router = express.Router();
 var { MongoClient } = require("mongodb");
 var client = new MongoClient("mongodb://localhost:27017");
 
-  
+
 router.post("/loginValidation", (req, res) => {
     console.log("I am loginValidation POST route/endpoint");
     console.log(req.body);
     var responseData = {};
-    authenticateUser(req.body.username,req.body.password).then((isValid) => {
-        if (isValid) {
+    authenticateUser(req.body.username, req.body.password).then((authenticateUserResponse) => {
+        if (authenticateUserResponse.validUser) {
             responseData.msg = "Success";
+            if(authenticateUserResponse.isAdmin){
+                responseData.userType="admin";
+            }else{
+                responseData.userType="customer";
+            }
+            
         } else {
+            console.log("Fail Block executed");
             responseData.msg = "Fail";
         }
         res.send(responseData);
     });
 });
 
-async function authenticateUser(username,password,isValid) {
+async function authenticateUser(username, password, isValid) {
     await client.connect();
     console.log("Connection established successfully.");
     var db = client.db("flipkart");
     var collection = db.collection("user_details");
     var result = await collection.find({ username: username }).toArray();
+    console.log("authenticateUserResponse: ",result);
+    var authenticateUserResponse = {};
     if (result.length == 1) {
-       var isValid = await bcrypt.compare(password, result[0].password);
-        console.log("Printing isValid answer: ", isValid);
+        var isValid = await bcrypt.compare(password, result[0].password);
+        authenticateUserResponse.validUser = isValid; 
+        authenticateUserResponse.isAdmin = result[0].isAdmin;
     }
-    return isValid;
+    return authenticateUserResponse;
 }
 
 // we kept get request for understanding the concept we are not using this request in this file.

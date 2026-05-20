@@ -25,7 +25,13 @@ var validateCredentials=()=>{
         console.log("Printing response from login module: ",response);
         if(response.data.msg=="Success"){
             document.querySelector(".wrongCredentialsMsg").style.display="none";
-            selectedPageLoader("productsPage");
+            
+            if(response.data.userType=="customer"){
+                selectedPageLoader("productsPage");
+            }
+            else{
+                selectedPageLoader("adminPage");
+            }
         }else{
             document.querySelector(".wrongCredentialsMsg").style.display = "block";
         }

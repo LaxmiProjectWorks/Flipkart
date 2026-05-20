@@ -1,46 +1,44 @@
-<div class="card">
-    <h2>Product Form</h2>
-
-    <div class="form-row">
-        <div class="form-group">
-            <label>Product Name</label>
-            <input type="text">
-        </div>
-
-        <div class="form-group">
-            <label>Price</label>
-            <input type="text">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-            <label>Category</label>
-            <select>
+<div class="form-container">
+    <h4>Product Form</h4>
+    <ul>
+        <li>
+            Product Name:
+            <input type="text" id="product_title">
+        </li>
+        <li>
+            Price:
+            <input type="text" id="product_price">
+        </li>
+        <li>
+            Category:
+            <select id="product_category">
                 <option>Jewellery</option>
                 <option>Electronics</option>
-                <option>Clothing</option>
+                <option>Men's Clothing</option>
+                <option>Women's Clothing</option>
             </select>
-        </div>
+        </li>
 
-        <div class="form-group">
-            <label>Rating</label>
-            <input type="text">
-        </div>
-    </div>
-
-    <div class="full">
-        <label>Description</label>
-        <textarea></textarea>
-    </div>
-
-    <div class="full">
-        <label>Product Image</label>
-        <div class="upload-section">
-            <input type="file">
-        </div>
-    </div>
-
-    <button class="btn">Add Details</button>
-
+        <li>
+            Rating:
+            <input type="number" min="1" max="5" step="1" id="product_rating">
+        </li>
+        <li>
+            Description:
+            <textarea id="product_description" cols="30" rows="5" maxlength="250"></textarea>
+        </li>
+        <li>
+            Image:
+            <input type="file" id="product_image">
+        </li>
+        <li>
+            <button onclick="addNewProductDataIntoDB()">Add Details</button>
+        </li>
+        
+        <li>
+            <a href="#" onclick="selectedPageLoader('login')">Login</a><br>
+            <a href="#" onclick="selectedPageLoader('signup')">Signup</a>
+        </li>
+        <li class="productInsertionStatus"></li>
+    </ul>
 </div>
