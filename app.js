@@ -15,6 +15,12 @@ var insertNewProductsDataIntoDB= require("./routes/insertNewProductsDataIntoDBRo
 var checkUserLoginSession= require("./routes/checkUserLoginSessionRouteModule");
 
 var app = express();
+//var http= require('http');
+
+
+// server.listen(3000,()=>{
+//   console.log("Server running on port 3000");
+// })
 
 app.use(session({
   secret:'mySecretKey123',

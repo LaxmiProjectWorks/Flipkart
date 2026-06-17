@@ -8,6 +8,31 @@ var app = require('../app');
 var debug = require('debug')('flipkart:server');
 var http = require('http');
 
+var server= http.createServer(app);
+
+var {Server}=require('socket.io');
+var io= new Server(server);
+
+// Store io globally
+app.set("io",io);
+
+io.on("connection",(socket)=>{
+  console.log("User connected: ",socket.id);
+  
+  //Receive message from client
+  socket.on("sendMessage", (data)=>{
+    console.log("Message received: ",data);
+
+    //Broadcast message to all clients
+    io.emit("receiveMessage",data);
+  });
+
+  // Handle disconnect
+  socket.on("disconnect",()=>{
+    console.log("User disonnected: ",socket.id);
+  });
+});
+
 /**
  * Get port from environment and store in Express.
  */
@@ -19,7 +44,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
