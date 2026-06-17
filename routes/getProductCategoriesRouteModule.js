@@ -11,6 +11,7 @@ router.post("/categories", (request, response) => {
         }else{
             response.send("Fail");
         }
+
     })
 });
 

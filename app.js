@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session= require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,8 +12,17 @@ var newSignUpRouter=require("./routes/newSignupRouteModule")
 var getProductDetailsRouter= require("./routes/getProductDetailsRouteModule");
 var getProductCategoriesRouter= require("./routes/getProductCategoriesRouteModule")
 var insertNewProductsDataIntoDB= require("./routes/insertNewProductsDataIntoDBRouteModule");
+var checkUserLoginSession= require("./routes/checkUserLoginSessionRouteModule");
 
 var app = express();
+
+app.use(session({
+  secret:'mySecretKey123',
+
+  cookie:{
+    maxAge:50000
+  }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,9 +34,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//You must expose the folder as static in app.js 
-app.use('/newProductUploadImages', express.static(path.join(__dirname, 'newProductUploadImages')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/validateLoginCredentials",loginValidationRouter);
@@ -34,6 +41,7 @@ app.use("/newUserRegistration",newSignUpRouter);
 app.use("/getProductDetails",getProductDetailsRouter);
 app.use("/getProductCategories",getProductCategoriesRouter);
 app.use("/insertNewProducts",insertNewProductsDataIntoDB);
+app.use("/checkUserLoginSession",checkUserLoginSession);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

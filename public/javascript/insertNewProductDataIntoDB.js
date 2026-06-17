@@ -14,20 +14,21 @@ var addNewProductDataIntoDB = () => {
     const file = document.getElementById("product_image").files[0];
     formData.append("image", file);
 
-    axios.post(insertProductsURL, formData, {
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    })
-    .then((response) => {
+    axios({
+        method:"POST",
+        url:insertProductsURL,
+        data:formData
+    }).then((response) => {
         var pis = document.querySelector(".productInsertionStatus");
 
-        if (response.data === "Success") {
-            pis.style.display = "block";
+        if (response.data == "Success") {
+            pis.style.visibility = "visible";
             pis.innerText = "Product Added Successfully";
+            console.log("Product Added successfully");
         } else {
-            pis.style.display = "block";
+            pis.style.visibility = "visible";
             pis.innerText = "Product Failed to Add";
+            console.log("Product Added failed");
         }
     })
     .catch((error) => {
@@ -37,4 +38,3 @@ var addNewProductDataIntoDB = () => {
         console.log("addNewProductDataIntoDB execution completed.");
     });
 };
-``

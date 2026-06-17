@@ -12,6 +12,7 @@ router.post("/loginValidation", (req, res) => {
     authenticateUser(req.body.username, req.body.password).then((authenticateUserResponse) => {
         if (authenticateUserResponse.validUser) {
             responseData.msg = "Success";
+            req.session.isUserLoggedIn=true;
             if(authenticateUserResponse.isAdmin){
                 responseData.userType="admin";
             }else{

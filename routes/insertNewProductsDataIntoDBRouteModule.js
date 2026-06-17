@@ -1,78 +1,6 @@
-// var express = require("express");
-// var router = express.Router();
-// var {MongoClient}=require("mongodb");
-// var client= new MongoClient("mongodb://localhost:27017/");
-
-// const multer = require("multer");
-
-// // ✅ Multer config here
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, "newProductUploadImages/");
-//     },
-//     filename: function (req, file, cb) {
-//         const uniqueName = Date.now() + "-" + file.originalname;
-//         cb(null, uniqueName);
-//     }
-// });
-
-// const upload = multer({ storage: storage });
-
-
-// const db = req.app.locals.db; // assuming you stored DB connection here
-
-// const newId = await getNextSequence(db, "productId");
-
-
-// //✅ Route with multer
-// router.post("/addProduct", upload.single("image"),async (req, res) => {
-
-//     const productData = {
-//         id:newId,
-//         title: req.body.title,
-//         price: req.body.price,
-//         category: req.body.category,
-//         rating: req.body.rating,
-//         description: req.body.description,
-//         imagePath: req.file.path
-//     };
-
-//     newProductsInsertionIntoDB(productData).then((result)=>{
-        
-//     })
-// });
-
-// async function newProductsInsertionIntoDB(productData){
-//     await client.connect();
-
-//     const newId = await getNextSequence(db, "productId");
-//     productData.id=newId;
-//     var db= client.db("flipkart");
-//     var collection= db.collection("product_details");
-//     var result= await collection.insertOne(productData);
-//     console.log("newProductsInsertionIntoDB response: ",result);
-// }
-
-
-// async function getNextSequence(db, name) {
-//     const result = await db.collection("counters").findOneAndUpdate(
-//         { _id: name },
-//         { $inc: { sequence_value: 1 } },
-//         { returnDocument: "after" }
-//     );
-
-//     return result.value.sequence_value;
-// }
-
-
-// module.exports = router;
-
-
-//Co-pilot code
 var express = require("express");
 var router = express.Router();
 var { MongoClient } = require("mongodb");
-
 const multer = require("multer");
 
 // ✅ Mongo client
@@ -81,7 +9,7 @@ var client = new MongoClient("mongodb://localhost:27017/");
 // ✅ Multer config
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "newProductUploadImages/"); // make sure folder exists
+        cb(null, "./public/newProductUploadImages"); // make sure folder exists
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + "-" + file.originalname);
@@ -90,7 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ✅ Auto increment function
+// ✅ Auto incrementing ID function
 async function getNextSequence(db, name) {
     const result = await db.collection("counters").findOneAndUpdate(
         { _id: name },
@@ -103,9 +31,6 @@ async function getNextSequence(db, name) {
     return result.sequence_value;
 }
 
-
-
-// ✅ Route
 router.post("/addProducts", upload.single("image"), async (req, res) => {
 
     try {
@@ -126,7 +51,7 @@ router.post("/addProducts", upload.single("image"), async (req, res) => {
             description: req.body.description,
 
             // ✅ FIX: change imagePath → image
-            image: req.file ? `http://localhost:3000/${req.file.path}` : null,
+            image: req.file ? `http://localhost:3000/newProductUploadImages/${req.file.filename}` : null,
 
             // ✅ FIX: proper rating structure
             rating: {
@@ -134,7 +59,7 @@ router.post("/addProducts", upload.single("image"), async (req, res) => {
                 count: 0   // default value
             }
         };
-
+console.log("Printing filename: ",req.file.filename);
         const result = await db.collection("product_details").insertOne(productData);
 
         if (result.acknowledged) {
