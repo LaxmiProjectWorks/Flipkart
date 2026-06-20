@@ -1,3 +1,5 @@
+// const socket = io();
+
 var selectedPageLoader = (type) => {
 
     var templateURL;
@@ -36,7 +38,11 @@ var loadTemplateData = (loginTemplateURL, type) => {
             if (type == "productsPage") {
                 loadProductsData();
                 loadProductCategories();
+                getLoggedinUserName();
+            } else if (type == "adminPage") {
+                getLoggedinUserName();
             }
+            
         }).catch(function (error) {
             console.log(error);
         }).finally(function () {
@@ -59,6 +65,9 @@ axios.post("http://localhost:3000/checkUserLoginSession/isLoggedin").then((respo
 });
 
 var userloggingOut = () => {
+
+    socket.disconnect();
+
     axios.post("checkUserLoginSession/loggedOut").then(function (response) {
         console.log("Controller came to frontend.");
         console.log("Printing response: ", response);

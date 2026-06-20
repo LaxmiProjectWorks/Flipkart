@@ -13,18 +13,12 @@ var getProductDetailsRouter= require("./routes/getProductDetailsRouteModule");
 var getProductCategoriesRouter= require("./routes/getProductCategoriesRouteModule")
 var insertNewProductsDataIntoDB= require("./routes/insertNewProductsDataIntoDBRouteModule");
 var checkUserLoginSession= require("./routes/checkUserLoginSessionRouteModule");
+var getLoggedinUsername= require("./routes/getLoggedinUsername");
 
 var app = express();
-//var http= require('http');
-
-
-// server.listen(3000,()=>{
-//   console.log("Server running on port 3000");
-// })
 
 app.use(session({
   secret:'mySecretKey123',
-
   cookie:{
     maxAge:50000
   }
@@ -48,6 +42,7 @@ app.use("/getProductDetails",getProductDetailsRouter);
 app.use("/getProductCategories",getProductCategoriesRouter);
 app.use("/insertNewProducts",insertNewProductsDataIntoDB);
 app.use("/checkUserLoginSession",checkUserLoginSession);
+app.use("/getLoggedinUsername",getLoggedinUsername);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

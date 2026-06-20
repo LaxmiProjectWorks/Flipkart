@@ -6,52 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flipkart</title>
     <link rel="icon" href="/images/flipkart-icon.png">
+    <link rel="stylesheet" href="/lib/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/lib/css/ratingGenerator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body>
     <header class="flipkart-header">
 
-    <div class="logo">
-        Flipkart
-        <span>Explore Plus ✨</span>
-    </div>
+        <div class="logo">
+            Flipkart
+            <span>Explore Plus ✨</span>
+        </div>
 
-    <div class="search-box">
-        <input type="text" placeholder="Search for products, brands and more">
-        <button>🔍</button>
-    </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search for products, brands and more">
+            <button>🔍</button>
+        </div>
 
-    <div class="header-actions">
-        <button class="login-btn">Login</button>
-        <a href="#">Cart 🛒</a>
-        <button class="logout-btn" onclick="userloggingOut()">Logout</button>
-    </div>
+        <div class="header-actions">
+            <button class="login-btn">Login</button>
+            <a href="#">Cart 🛒</a>
+            <button class="logout-btn" onclick="userloggingOut()">Logout</button>
+        </div>
 
-</header>
+    </header>
     <main>
 
     </main>
     <footer class="flipkart-footer">
 
-    <div class="footer-left">
-        © 2025 Flipkart
-    </div>
+        <div class="footer-left">
+            © 2025 Flipkart
+        </div>
 
-    <div class="footer-center">
-        Electronics | Fashion | Jewellery | Grocery
-    </div>
+        <div class="footer-center">
+            Electronics | Fashion | Jewellery | Grocery
+        </div>
 
-    <div class="footer-right">
-        Made with ❤️ Laxmi
-    </div>
+        <div class="footer-right">
+            Made with ❤️ Laxmi
+        </div>
 
-</footer>
+    </footer>
 
     <!-- first we need to load axios.js and then other js files because other js files might have used axios -->
     <script src="/lib/js/socket.io.js"></script>
     <script src="/lib/js/axios.js"></script>
     <script src="/lib/js/handlebars.js"></script>
+    <script src="/lib/js/ratingGenerator.js"></script>
     <script src="/javascript/pageloader.js"></script>
     <script src="javascript/loginCredentialValidation.js"></script>
     <script src="javascript/loadProductsData.js"></script>
@@ -59,14 +64,12 @@
     <script src="javascript/newSignup.js"></script>
     <script src="javascript/insertNewProductDataIntoDB.js"></script>
     <script src="javascript/chat.js"></script>
-    <script src="/lib/js/ratingGenerator.js"></script>
+    <script src="javascript/adminChat.js"></script>
+    
 
     <script src="/lib/js/bootstrap/bootstrap.min.js"></script>
-    
-    <link rel="stylesheet" href="/lib/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="/lib/css/ratingGenerator.css">
 
-    <link rel="stylesheet" href="/css/app.css">
+
 </body>
 
 </html>

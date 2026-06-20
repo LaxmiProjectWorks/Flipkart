@@ -28,9 +28,11 @@ var validateCredentials=()=>{
             
             if(response.data.userType=="customer"){
                 selectedPageLoader("productsPage");
+                getLoggedinUserName();
             }
             else{
                 selectedPageLoader("adminPage");
+                getLoggedinUserName();
             }
         }else{
             document.querySelector(".wrongCredentialsMsg").style.visibility = "visible";

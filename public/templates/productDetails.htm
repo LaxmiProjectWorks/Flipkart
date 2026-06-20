@@ -1,13 +1,33 @@
-<div class="productCategories">
-    <button type="button" class="btn btn-primary" class="applyProductFilter" onclick="loadProductsData()">All Products</button>
+<!-- <!-- ✅ CATEGORY BAR -->
+  <div class="productCategories">
+    <button type="button" class="btn btn-primary" onclick="loadProductsData()">All Products</button>
 </div>
+<div class="contentWrapper">
+<!-- ✅ LEFT PANEL -->
+<div class="leftPanel">
+
+    <!-- ✅ NEW HEADER -->
+    <div class="chatHeader">
+        <span class="chatIcon">
+            <i class="fa fa-headphones"></i>
+        </span>
+        <span class="chatTitle">24x7 Customer Care</span>
+    </div>
+
+    <!-- ✅ CHAT SECTION -->
+    <div class="chatSection">
+
+        <div id="chatBox"></div>
+
+        <div class="chatInputWrapper">
+            <input type="text" id="messageInput" placeholder="Type message...">
+            <button onclick="sendUserMessage()">Send</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ✅ RIGHT SIDE PRODUCTS -->
 <div class="productsContainer"></div>
-
-<!-- Chat Section -->
-<h3>Chat with Seller</h3>
-
-<div id="chatBox" style="height:200px; overflow:auto; border:1px solid black;">
 </div>
-
-<input type="text" id="messageInput" placeholder="Type message...">
-<button onclick="sendMessage()">Send</button>

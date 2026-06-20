@@ -1,4 +1,3 @@
-
 * {
     padding: 0px;
     margin: 0px;
@@ -15,14 +14,16 @@ body {
 main {
     width: 99%;
     box-sizing: border-box;
-    height: 50px;
-    border: 2px solid;
-    padding: 5px;
-    margin: 5px;
-}
 
-main {
+    /* height: calc(100vh - 120px); */
+
+    /* padding: 5px;
+    margin: 5px; */
+
+    display: flex;
     flex: 1;
+
+    overflow: hidden;
 }
 
 .admin-form-container {
@@ -56,18 +57,10 @@ li {
 
 .productInsertionStatus,
 .signupResult {
-     display: none; 
+    display: none;
     text-align: center;
     color: red;
     font-size: large;
-}
-
-.productsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid;
-    height: 500px;
-    overflow-y: auto;
 }
 
 .productCard {
@@ -79,7 +72,7 @@ li {
     padding: 5px;
     border: 2px solid;
     border-radius: 10px;
-    height:330px;
+    height: 330px;
 }
 
 .rating {
@@ -97,30 +90,30 @@ li {
 
 }
 
-.productCard p{
+.productCard p {
     margin: 3px;
 }
 
-.productCategories{
+.productCategories {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 200px;
-    float:left;
-    margin:10px;
+    float: left;
+    margin: 10px;
     gap: 10px;
 }
 
-.productCategories button{
+.productCategories button {
     text-transform: capitalize;
 }
 
-.productCard p{
+.productCard p {
     text-transform: capitalize;
 }
 
 /* ------------------CO-PILOT EXPERIMENT------------------ */
- 
+
 /* ✅ LOGIN CARD (FLIPKART STYLE) */
 .login-form-container {
     width: 380px;
@@ -131,8 +124,9 @@ li {
     border-radius: 8px;
     padding: 20px;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    border: none;   /* remove old border */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border: none;
+    /* remove old border */
 }
 
 /* ✅ TITLE */
@@ -178,7 +172,8 @@ li {
     width: 100%;
     padding: 10px;
 
-    background-color: #fb641b; /* Flipkart orange */
+    background-color: #fb641b;
+    /* Flipkart orange */
     color: white;
 
     border: none;
@@ -205,11 +200,12 @@ li {
 
 /* ✅ ERROR MESSAGE */
 .login-form-container .wrongCredentialsMsg {
-    visibility:hidden;
+    visibility: hidden;
     color: red;
     font-size: 14px;
     text-align: center;
 }
+
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ✅ SIGNUP CARD (Flipkart style) */
 .signup-form-container {
@@ -221,7 +217,7 @@ li {
     border-radius: 8px;
     padding: 20px;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border: none;
 }
 
@@ -250,9 +246,12 @@ li {
 }
 
 /* ✅ FULL WIDTH ELEMENTS */
-.signup-form-container ul li:nth-child(5),  /* Register button */
-.signup-form-container ul li:nth-child(6),  /* Login link */
-.signup-form-container ul li:nth-child(7) { /* Message */
+.signup-form-container ul li:nth-child(5),
+/* Register button */
+.signup-form-container ul li:nth-child(6),
+/* Login link */
+.signup-form-container ul li:nth-child(7) {
+    /* Message */
     grid-column: span 2;
 }
 
@@ -327,6 +326,7 @@ li {
 .signup-form-container .signupResult.error {
     color: red;
 }
+
 /* +++++++++++++++++++++++++++++++++++++++++++++ */
 /* ✅ ADMIN CARD (FINAL COMPACT) */
 .admin-form-container {
@@ -338,7 +338,7 @@ li {
     border-radius: 8px;
     padding: 15px;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border: none;
 }
 
@@ -354,7 +354,8 @@ li {
 .admin-form-container ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px 10px;   /* ✅ reduced for compactness */
+    gap: 6px 10px;
+    /* ✅ reduced for compactness */
 }
 
 /* ✅ EACH FIELD */
@@ -402,7 +403,8 @@ li {
 
 /* ✅ TEXTAREA SMALLER */
 .admin-form-container textarea {
-    height: 55px;  /* ✅ slightly reduced */
+    height: 55px;
+    /* ✅ slightly reduced */
     resize: none;
 }
 
@@ -445,7 +447,7 @@ li {
     height: 16px;
     font-size: 13px;
     text-align: center;
-    visibility:hidden;
+    visibility: hidden;
 }
 
 /* ✅ OPTIONAL COLORS */
@@ -457,127 +459,1453 @@ li {
 .admin-form-container .productInsertionStatus.error {
     color: red;
 }
+
 /* ++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /* Flipkart Header */
-.flipkart-header{
-    width:100%;
-    height:60px;
+.flipkart-header {
+    width: 100%;
+    height: 60px;
 
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    padding:0 30px;
-    box-sizing:border-box;
+    padding: 0 30px;
+    box-sizing: border-box;
 
-    background:#2874f0;
-    color:white;
+    background: #2874f0;
+    color: white;
 
-    border:none;
-    margin:0;
+    border: none;
+    margin: 0;
 }
 
 /* Logo */
-.logo{
-    display:flex;
-    flex-direction:column;
+.logo {
+    display: flex;
+    flex-direction: column;
 
-    font-size:22px;
-    font-weight:bold;
-    font-style:italic;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: italic;
 }
 
-.logo span{
-    font-size:11px;
-    color:#ffe500;
+.logo span {
+    font-size: 11px;
+    color: #ffe500;
 }
 
 /* Search Area */
-.search-box{
-    display:flex;
-    width:45%;
+.search-box {
+    display: flex;
+    width: 45%;
 }
 
-.search-box input{
-    flex:1;
-    height:36px;
+.search-box input {
+    flex: 1;
+    height: 36px;
 
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 
-    padding-left:10px;
-    border-radius:2px 0 0 2px;
+    padding-left: 10px;
+    border-radius: 2px 0 0 2px;
 }
 
-.search-box button{
-    width:50px;
+.search-box button {
+    width: 50px;
 
-    border:none;
-    background:white;
-    cursor:pointer;
+    border: none;
+    background: white;
+    cursor: pointer;
 
-    border-radius:0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
 }
 
 /* Right Side */
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:25px;
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-.login-btn, .logout-btn{
-    background:white;
-    color:#2874f0;
+.login-btn,
+.logout-btn {
+    background: white;
+    color: #2874f0;
 
-    padding:8px 30px;
-    border:none;
+    padding: 8px 30px;
+    border: none;
 
-    font-weight:bold;
-    cursor:pointer;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.header-actions a{
-    color:white;
-    text-decoration:none;
-    font-weight:500;
+.header-actions a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
 }
+
 /* +++++++++++++++++++++++++++++++++++++++++ */
 /* Flipkart Footer */
 
-.flipkart-footer{
-    width:100%;
-    height:60px;
+.flipkart-footer {
+    width: 100%;
+    height: 60px;
 
-    background:#172337;   /* Flipkart dark footer */
+    background: #172337;
+    /* Flipkart dark footer */
 
-    color:white;
+    color: white;
 
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    padding:0 30px;
-    box-sizing:border-box;
+    padding: 0 30px;
+    box-sizing: border-box;
 
-    margin:0;
-    border:none;
+    margin: 0;
+    border: none;
 
-    font-size:14px;
+    font-size: 14px;
 }
 
 .footer-left,
 .footer-center,
-.footer-right{
-    display:flex;
-    align-items:center;
+.footer-right {
+    display: flex;
+    align-items: center;
 }
 
-.footer-center{
-    color:#b0b0b0;
+.footer-center {
+    color: #b0b0b0;
 }
 
-.footer-right{
-    font-size:13px;
+.footer-right {
+    font-size: 13px;
+}
+
+/* ----------- LEFT PANEL ----------- */
+.leftPanel {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+}
+
+/* ----------- CATEGORY ----------- */
+.productCategories {
+    height: 40%;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.productCategories button {
+    width: 100%;
+    padding: 8px;
+}
+
+/* ----------- CHAT ----------- */
+.chatSection {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+}
+
+.chatSection h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+/* CHAT BOX */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+
+    padding: 5px;
+    background: #fafafa;
+}
+
+/* CHAT INPUT */
+.chatInputWrapper {
+    display: flex;
+}
+
+.chatInputWrapper input {
+    flex: 1;
+    padding: 6px;
+}
+
+.chatInputWrapper button {
+    padding: 6px 10px;
+}
+
+/* ----------- PRODUCTS ----------- */
+.productsContainer {
+    flex: 1;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; /* ✅ IMPORTANT */
+}
+
+/* -------- BODY -------- */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------- HEADER -------- */
+.flipkart-header {
+    height: 60px;
+    flex-shrink: 0;
+}
+
+/* -------- FOOTER -------- */
+.flipkart-footer {
+    height: 60px;
+    flex-shrink: 0;
+}
+
+/* -------- MAIN -------- */
+main {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+
+    /* ✅ EXACT SPACE AFTER HEADER + FOOTER */
+    /* height: calc(100vh - 120px); */
+
+    /* ❗ IMPORTANT FIXES */
+    margin: 0;             /* ❌ removed extra space */
+    padding: 0;            /* ❌ removed extra space */
+    border: none;          /* optional cleanup */
+}
+
+/* -------- LEFT PANEL -------- */
+.leftPanel {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+
+    height: 100%; /* ✅ fill main */
+}
+
+/* -------- CATEGORY -------- */
+.productCategories {
+    flex: 0 0 40%;   /* ✅ instead of height */
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.productCategories button {
+    width: 100%;
+    padding: 8px;
+}
+
+/* -------- CHAT -------- */
+.chatSection {
+    flex: 1; /* ✅ take remaining space */
+
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.chatSection h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+/* CHAT BOX */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+
+    padding: 5px;
+    background: #fafafa;
+}
+
+/* CHAT INPUT */
+.chatInputWrapper {
+    display: flex;
+}
+
+.chatInputWrapper input {
+    flex: 1;
+    padding: 6px;
+}
+
+.chatInputWrapper button {
+    padding: 6px 10px;
+}
+
+/* -------- PRODUCTS -------- */
+.productsContainer {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 10px;
+    overflow-y: auto;
+
+    background: #f1f3f6;
+
+    /* height: 100%; ✅ full height inside main */
+}
+
+/* -------- PRODUCT CARD -------- */
+.productCard {
+    width: 240px;
+    height: 320px;
+
+    margin: 8px;
+    padding: 10px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productCard img {
+    width: 100px;
+    height: 140px;
+}
+
+.productCard p {
+    margin: 5px 0;
+}
+
+/* ---------------- GLOBAL ---------------- */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------- BODY LAYOUT ---------------- */
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; ✅ prevents full page scroll */
+}
+
+/* ---------------- HEADER ---------------- */
+.flipkart-header {
+    height: 60px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+    background: #2874f0;
+    color: white;
+}
+
+/* ---------------- FOOTER ---------------- */
+.flipkart-footer {
+    height: 60px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+    background: #172337;
+    color: white;
+}
+
+/* ---------------- MAIN ---------------- */
+main {
+    flex: 1;                  /* ✅ take remaining height */
+    display: flex;
+    overflow: hidden;         /* ✅ no scroll here, children will scroll */
+}
+
+/* ---------------- LEFT PANEL ---------------- */
+.leftPanel {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+
+    background: #fff;
+    border-right: 1px solid #ddd;
+}
+
+/* -------- CATEGORY (TOP LEFT) -------- */
+.productCategories {
+    flex: 0 0 40%;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.productCategories button {
+    width: 100%;
+    padding: 8px;
+}
+
+/* -------- CHAT (BOTTOM LEFT) -------- */
+.chatSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+}
+
+.chatSection h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* -------- CHAT BOX -------- */
+#chatBox {
+    flex: 1;
+    overflow-y: auto; /* ✅ scroll happens here */
+
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 5px;
+
+    background: #fafafa;
+}
+
+/* -------- CHAT INPUT -------- */
+.chatInputWrapper {
+    display: flex;
+}
+
+.chatInputWrapper input {
+    flex: 1;
+    padding: 6px;
+}
+
+.chatInputWrapper button {
+    padding: 6px 10px;
+}
+
+/* ---------------- PRODUCTS ---------------- */
+.productsContainer {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 10px;
+
+    overflow-y: auto; /* ✅ scroll happens here */
+    background: #f1f3f6;
+}
+
+/* -------- PRODUCT CARD -------- */
+.productCard {
+    width: 240px;
+    height: 320px;
+
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -------- IMAGE -------- */
+.productCard img {
+    width: 100px;
+    height: 140px;
+}
+
+/* -------- TEXT -------- */
+.productCard p {
+    margin: 5px 0;
+}
+
+/* -------- REMOVE OLD CONFLICTS -------- */
+
+/* ❌ REMOVE these if present anywhere */
+.productCategories {
+    float: none;    /* override float */
+    height: auto;   /* avoid conflict with flex */
+}
+
+.productsContainer {
+    height: auto;   /* remove fixed heights */
+}
+
+/* .productCard {
+    transition: 0.2s;
+}
+
+.productCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+} */
+.productCategories button {
+    background-color: #2874f0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.productCategories button:hover {
+    background-color: #1f5ec9;
+}
+
+
+.productCard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform: translateZ(0); /* ✅ stabilize GPU */
+}
+
+/* ✅ Hover effect */
+.productCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ✅ CRITICAL FIX: stop blinking */
+body.modal-open .productCard {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+.productsContainer {
+    overflow-y: auto;
+    position: relative;
+}
+body.modal-open {
+    pointer-events: none;
+}
+
+/* ✅ Allow modal interaction */
+body.modal-open .modal,
+body.modal-open .modal * {
+    pointer-events: auto;
+}
+
+/* -------- CHAT SECTION UPGRADE -------- */
+
+.chatSection {
+    padding: 8px;
+}
+
+/* Chat Title */
+.chatSection h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Chat Box */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+
+    background: #e5ddd5; /* WhatsApp bg */
+    border-radius: 6px;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Default message */
+#chatBox div {
+    max-width: 80%;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+/* Sender (You) */
+.myMessage {
+    align-self: flex-end;
+    background: #dcf8c6;
+}
+
+/* Receiver (Seller) */
+.otherMessage {
+    align-self: flex-start;
+    background: #ffffff;
+}
+
+/* Chat Input */
+.chatInputWrapper {
+    display: flex;
+    margin-top: 5px;
+}
+
+/* Input Field */
+.chatInputWrapper input {
+    flex: 1;
+    padding: 7px;
+
+    border-radius: 20px 0 0 20px;
+    border: 1px solid #ccc;
+
+    font-size: 12px;
+}
+
+/* Send Button */
+.chatInputWrapper button {
+    padding: 6px 12px;
+
+    border-radius: 0 20px 20px 0;
+    border: none;
+
+    background-color: #25d366;
+    color: white;
+
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.chatInputWrapper button:hover {
+    background-color: #1ebe5d;
+}
+
+
+
+.productCategories {
+    display: flex;
+    gap: 15px;
+
+    padding: 10px 20px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+
+    overflow-x: auto;
+}
+
+.productCategories button {
+    min-width: 120px;
+
+    border-radius: 20px;
+    background-color: #2874f0;
+    color: white;
+
+    border: none;
+    padding: 8px 12px;
+
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.productCategories button:hover {
+    background-color: #1f5ec9;
+}
+
+.leftPanel {
+    width: 320px;   /* ✅ increased for chat usability */
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+}
+.chatSection {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Chat box */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+
+    padding: 10px;
+    background: #e5ddd5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ✅ FIX: Input always visible */
+.chatInputWrapper {
+    display: flex;
+
+    position: sticky;
+    bottom: 0;
+
+    background: white;
+    padding-top: 5px;
+}
+.productsContainer {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 10px;
+    overflow-y: auto;
+
+    background: #f1f3f6;
+}
+
+
+
+/* ✅ MAKE MAIN WRAP INTO 2 ROWS */
+main {
+    display: flex;
+}
+
+/* ✅ CATEGORY BAR TAKES FULL TOP ROW */
+.productCategories {
+    width: 100%;
+    order: 0;                /* first row */
+    
+    display: flex;
+    flex-direction: row;     /* ✅ force horizontal */
+    gap: 15px;
+    padding: 10px 20px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+
+    overflow-x: auto;
+}
+
+/* ✅ LEFT PANEL GOES BELOW CATEGORY */
+.leftPanel {
+    order: 1;
+}
+
+/* ✅ PRODUCTS ON RIGHT */
+.productsContainer {
+    order: 2;
+}
+
+/* ✅ ENSURE 2-COLUMN LAYOUT BELOW CATEGORY */
+.leftPanel {
+    width: 300px;
+}
+
+.productsContainer {
+    flex: 1;
+}
+
+/* ✅ MAIN SHOULD WRAP INTO 2 ROWS */
+main {
+    display: flex;
+    flex-wrap: wrap; /* ✅ THIS WAS MISSING */
+}
+
+/* ✅ FORCE CATEGORY BAR INTO TOP ROW */
+main > .productCategories {
+    width: 100%;
+    order: 0;
+
+    display: flex;
+    flex-direction: row !important;  /* 🚨 override old */
+    align-items: center;
+
+    gap: 15px;
+    padding: 10px 20px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+
+    overflow-x: auto;
+
+    height: auto !important;   /* 🚨 kill old height */
+    flex: none !important;     /* 🚨 kill old flex:40% */
+}
+
+/* ✅ FIX BUTTON SHAPE (IMPORTANT) */
+.productCategories button {
+    min-width: 140px;   /* ✅ consistent size */
+    height: 40px;       /* ✅ FIX HUGE HEIGHT */
+
+    border-radius: 20px;
+    white-space: nowrap;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ LEFT PANEL BELOW CATEGORY */
+main > .leftPanel {
+    width: 320px;
+    order: 1;
+}
+
+/* ✅ PRODUCTS ON RIGHT */
+main > .productsContainer {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* =====================Experiement========================= */
+/* ✅ MAIN LAYOUT FIX */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden; /* keep */
+}
+
+/* ✅ PRODUCTS SHOULD SCROLL */
+main > .productsContainer {
+    flex: 1;
+    order: 2;
+
+    overflow-y: auto;   /* ✅ SCROLL WORKS HERE */
+    overflow-x: hidden;
+
+    min-height: 0;      /* ✅ VERY IMPORTANT */
+}
+main > .leftPanel {
+    width: 300px;
+    /* height: calc(100% - 60px); ✅ match products */
+    order: 1;
+
+    display: flex;
+    flex-direction: column;
+}
+main > .productCategories {
+    width: 100%;
+    order: 0;
+
+    height: 50px;              /* ✅ REDUCED */
+    padding: 5px 15px;         /* ✅ tighter spacing */
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    overflow-x: auto;
+
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+.productCategories button {
+    min-width: 120px;
+    height: 32px;           /* ✅ REDUCED */
+    
+    padding: 5px 10px;
+    font-size: 13px;
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.productCard {
+    width: 250px;     /* ✅ slightly compact */
+    height: 311px;
+
+    padding: 8px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    /* margin: 0;   avoid spacing conflicts */
+}
+.productsContainer {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    align-content: flex-start;
+
+    /* ✅ KEY FIX */
+    justify-content: flex-start;   /* rows start from left */
+
+    /* ✅ CENTER THE FULL GRID */
+    /* max-width: 1100px; */
+    /* margin: 0 auto; */
+
+    padding: 15px;
+}
+
+
+
+
+.chatSection {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* ✅ CHAT HEADER */
+.chatHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    height: 45px;
+    padding: 0 12px;
+
+    background: #f1f3f6;
+    border-bottom: 1px solid #ddd;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ✅ ICON */
+.chatIcon i {
+    font-size: 18px;
+    color: #fff;  /* Flipkart blue */
+}
+
+/* ✅ TITLE */
+.chatTitle {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ✅ ADJUST CHAT SECTION HEIGHT */
+.chatSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ CHAT BOX TAKES FULL SPACE */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    /* overflow: hidden;           ✅ keep overall clean */
+}
+main {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    min-height: 0;   /* ✅ VERY IMPORTANT FIX */
+}
+.productsContainer {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    align-content: flex-start;
+    justify-content: flex-start;
+
+    overflow-y: auto;   /* ✅ SCROLL */
+    overflow-x: hidden;
+
+    min-height: 0;
+
+    /* ❌ REMOVE THESE */
+    /* max-width: 1100px; */
+    /* margin: 0 auto; */
+
+    padding: 15px;
+}
+main {
+    flex: 1;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    min-height: 0;
+
+    height: calc(100vh - 120px);  /* ✅ IMPORTANT: bring this back correctly */
+}
+main > .productsContainer {
+    flex: 1;
+
+    overflow-y: auto;   /* ✅ scroll */
+    overflow-x: hidden;
+
+    min-height: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    align-content: flex-start;
+}
+/* ✅ wrapper fixes height */
+.contentWrapper {
+    flex: 1;
+    display: flex;
+
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ✅ left side */
+.leftPanel {
+    width: 300px;
+}
+
+/* ✅ RIGHT SIDE SCROLL FIX */
+.productsContainer {
+    flex: 1;
+
+    overflow-y: auto;   /* ✅ SCROLL NOW WORKS */
+    overflow-x: hidden;
+
+    min-height: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    padding: 15px;
+}
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;  /* ✅ IMPORTANT */
+
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ------------------The above is safest code--------------------- */
+
+/* ---------------------The below Experiment code----------------------- */
+/* ---------------- ADMIN LAYOUT ---------------- */
+
+.adminWrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ✅ LEFT (65%) */
+.leftAdmin {
+    flex: 0 0 65%;
+    max-width: 65%;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+/* ✅ RIGHT (35%) */
+.rightAdmin {
+    flex: 0 0 35%;
+    max-width: 35%;
+
+    position: relative;
+    overflow: hidden;
+
+    border-left: 1px solid #ddd;
+}
+
+
+/* ---------------- VIEW SWITCH (IMPORTANT) ---------------- */
+
+/* ✅ hide both views initially */
+#userListView,
+#chatView {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+}
+
+/* ✅ show active view */
+.activeView {
+    display: block;
+}
+
+/* ✅ chat view needs flex layout */
+#chatView.activeView {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ---------------- USER LIST ---------------- */
+
+.userList {
+    height: 100%;
+    overflow-y: auto;
+
+    background: #ffffff;
+}
+
+.userItem {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.userItem:hover {
+    background: #f1f3f6;
+}
+
+.userItem.active {
+    background: #dbeafe;
+    font-weight: bold;
+}
+
+
+/* ---------------- CHAT SECTION ---------------- */
+
+.chatHeader {
+    padding: 10px;
+    background: #2874f0;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: 600;
+}
+
+.backBtn {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* CHAT BOX */
+#chatBox {
+    flex: 1;
+    overflow-y: auto;
+
+    padding: 10px;
+    background: #e5ddd5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* CHAT INPUT */
+.chatInputWrapper {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.chatInputWrapper input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.chatInputWrapper button {
+    padding: 10px 15px;
+    border: none;
+    background: #25d366;
+    color: white;
+    cursor: pointer;
+}
+
+.chatInputWrapper button:hover {
+    background: #1ebe5d;
+}
+
+
+/* ---------------- MESSAGES ---------------- */
+
+.myMessage {
+    align-self: flex-end;
+    background: #dcf8c6;
+    padding: 6px 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.otherMessage {
+    align-self: flex-start;
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+/* =========================Tough Experiment======================== */
+
+/* ================= FORCE ADMIN LAYOUT ================= */
+
+/* ================= ADMIN ONLY (NO GLOBAL IMPACT) ================= */
+
+/* ⚠️ DO NOT TOUCH main anymore */
+
+/* ADMIN WRAPPER CONTROLS LAYOUT */
+.adminWrapper {
+    display: flex;
+    height: calc(100vh - 120px); /* header + footer */
+}
+
+/* LEFT PANEL */
+.adminWrapper .leftAdmin {
+    flex: 0 0 65%;
+    max-width: 65%;
+    overflow-y: auto;
+}
+
+/* RIGHT PANEL */
+.adminWrapper .rightAdmin {
+    flex: 0 0 35%;
+    max-width: 35%;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* VIEW SWITCH */
+.adminWrapper #userListView,
+.adminWrapper #chatView {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+}
+
+/* ACTIVE VIEW */
+.adminWrapper #userListView.activeView {
+    display: block;
+}
+
+.adminWrapper #chatView.activeView {
+    display: flex;
+    flex-direction: column;
+}
+
+/* USER LIST */
+.adminWrapper .userList {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.adminWrapper .userItem {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.adminWrapper .userItem:hover {
+    background: #f1f3f6;
+}
+
+.adminWrapper .userItem.active {
+    background: #dbeafe;
+    font-weight: bold;
+}
+
+/* CHAT HEADER */
+.adminWrapper .chatHeader {
+    padding: 10px;
+    background: #2874f0;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* CHAT BOX */
+.adminWrapper #chatBox {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background: #e5ddd5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* INPUT */
+.adminWrapper .chatInputWrapper {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.adminWrapper .chatInputWrapper input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.adminWrapper .chatInputWrapper button {
+    padding: 10px 15px;
+    border: none;
+    background: #25d366;
+    color: white;
+}
+/* ---------- HEADER ---------- */
+.adminWrapper .userListHeader {
+    padding: 12px;
+    background: #2874f0;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.adminWrapper .userListHeader h3 {
+    font-size: 16px;
+}
+
+.adminWrapper .userCount {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+
+/* ---------- USER LIST ---------- */
+.adminWrapper .userList {
+    overflow-y: auto;
+    height: calc(100% - 50px);
+    background: #f5f7fa;
+}
+
+
+/* ---------- USER ITEM ---------- */
+.adminWrapper .userItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.adminWrapper .userItem:hover {
+    background: #e8f0fe;
+}
+
+.adminWrapper .userItem.active {
+    background: #d2e3fc;
+}
+
+
+/* ---------- AVATAR ---------- */
+.adminWrapper .avatar {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    background: #2874f0;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+/* ---------- TEXT ---------- */
+.adminWrapper .userText {
+    display: flex;
+    flex-direction: column;
+}
+
+.adminWrapper .userName {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.adminWrapper .lastMsg {
+    font-size: 12px;
+    color: #666;
 }

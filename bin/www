@@ -8,110 +8,151 @@ var app = require('../app');
 var debug = require('debug')('flipkart:server');
 var http = require('http');
 
-var server= http.createServer(app);
+var server = http.createServer(app);
 
-var {Server}=require('socket.io');
-var io= new Server(server);
+var { Server } = require('socket.io');
+var io = new Server(server);
 
 // Store io globally
-app.set("io",io);
+app.set("io", io);
 
-io.on("connection",(socket)=>{
-  console.log("User connected: ",socket.id);
+let activeUsers = {}; // Storing live users
+
+//  SOCKET LOGIC ONLY HERE
+io.on("connection", (socket) => {
+
+  console.log("Socket connected:", socket.id);
+
+  // USER ONLINE
+  socket.on("userOnline", (userData) => {
+
+    
+    activeUsers[socket.id] = {
+      id: userData.id,
+      name: userData.name
+    };
+
+    console.log("userOnline received:", userData);
+    
+    const filteredUsers = Object.values(activeUsers)
+      .filter(u => u.name !== "Admin");
+
+    io.emit("updateUserList", filteredUsers);
+
+    console.log("Active Users Count:", Object.keys(activeUsers).length);
+  });
+
+  // JOIN ROOM
+  socket.on("joinRoom", (roomId) => {
+    socket.join(roomId);
+    console.log("Joined room:", roomId);
+  });
+
+  // SEND MESSAGE
+  socket.on("sendMessage", (data) => {
+    const { roomId, sender, message } = data;
+
+    io.to(roomId).emit("receiveMessage", {
+      sender,
+      message
+    });
+  });
+
   
-  //Receive message from client
-  socket.on("sendMessage", (data)=>{
-    console.log("Message received: ",data);
+  socket.on("disconnect", () => {
 
-    //Broadcast message to all clients
-    io.emit("receiveMessage",data);
-  });
+    if (activeUsers[socket.id]) {
+        delete activeUsers[socket.id];
 
-  // Handle disconnect
-  socket.on("disconnect",()=>{
-    console.log("User disonnected: ",socket.id);
-  });
+        const filteredUsers = Object.values(activeUsers)
+            .filter(u => u.name !== "Admin");  
+
+        io.emit("updateUserList", filteredUsers);
+    }
 });
 
-/**
- * Get port from environment and store in Express.
- */
+}); 
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+  /**
+   * Get port from environment and store in Express.
+   */
 
-//var server = http.createServer(app);
+  var port = normalizePort(process.env.PORT || '3000');
+  app.set('port', port);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  /**
+   * Create HTTP server.
+   */
 
-server.listen(port,()=>{
-  console.log("Server is listening at ",port);
-});
-server.on('error', onError);
-server.on('listening', onListening);
+  //var server = http.createServer(app);
 
-/**
- * Normalize a port into a number, string, or false.
- */
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+  server.listen(port, () => {
+    console.log("Server is listening at ", port);
+  });
+  server.on('error', onError);
+  server.on('listening', onListening);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
+  /**
+   * Normalize a port into a number, string, or false.
+   */
+
+  function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+      // named pipe
+      return val;
+    }
+
+    if (port >= 0) {
+      // port number
+      return port;
+    }
+
+    return false;
   }
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+  /**
+   * Event listener for HTTP server "error" event.
+   */
 
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
+  function onError(error) {
+    if (error.syscall !== 'listen') {
       throw error;
+    }
+
+    var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1);
+        break;
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use');
+        process.exit(1);
+        break;
+      default:
+        throw error;
+    }
   }
-}
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+  /**
+   * Event listener for HTTP server "listening" event.
+   */
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+  function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+  }

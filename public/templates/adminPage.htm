@@ -1,4 +1,4 @@
-<div class="admin-form-container">
+<!-- <div class="admin-form-container">
     <h4>Product Form</h4>
     <ul>
         <li>
@@ -42,11 +42,73 @@
     </ul>
 </div>
 
-<!-- Chat Section -->
 <h3>Chat with Seller</h3>
 
 <div id="chatBox" style="height:200px; overflow:auto; border:1px solid black;">
 </div>
 
 <input type="text" id="messageInput" placeholder="Type message...">
-<button onclick="sendMessage()">Send</button>
+<button onclick="sendMessage()">Send</button> -->
+
+<div class="adminWrapper">
+
+    <!-- ✅ LEFT SIDE (FORM - SAME) -->
+    <div class="leftAdmin">
+
+        <div class="admin-form-container">
+            <h4>Product Form</h4>
+            <ul>
+                <li>Product Name:<input type="text"></li>
+                <li>Price:<input type="text"></li>
+                <li>
+                    Category:
+                    <select>
+                        <option>Jewellery</option>
+                        <option>Electronics</option>
+                    </select>
+                </li>
+                <li>Rating:<input type="number"></li>
+                <li>Description:<textarea></textarea></li>
+                <li>Image:<input type="file"></li>
+                <li><button>Add Details</button></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="rightAdmin">
+        <!-- ✅ USER LIST VIEW (VISIBLE FIRST) -->
+        <div id="userListView" class="activeView">
+
+            <!-- HEADER -->
+            <div class="userListHeader">
+                <h3>
+                    <i class="fa-solid fa-headset"></i>Active Chats
+                </h3>
+                <span class="userCount">4 Users</span>
+            </div>
+
+            <!-- USER LIST -->
+            <div class="userList"></div>
+
+        </div>
+
+        <!-- ✅ CHAT VIEW (HIDDEN INITIALLY) -->
+        <div id="chatView">
+
+            <div class="chatHeader">
+                <span class="backBtn" onclick="goBack()">← Back</span>
+                <span id="chatUserName">Select a user</span>
+            </div>
+
+            <div id="chatBox"></div>
+
+            <div class="chatInputWrapper">
+                <input id="messageInput" placeholder="Type message">
+                <button onclick="sendAdminMessage()">Send</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

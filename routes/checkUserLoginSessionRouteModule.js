@@ -2,13 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 router.post("/isLoggedin", (request, response) => {
-    console.log("Statement 1");
+    console.log("Serious Matter: ",request.session.isUserLoggedIn,request.session.userName);
     if (request.session.isUserLoggedIn) {
         response.send({
-            isLoggedIn: "Loggedin"
+            isLoggedIn: "Loggedin",
+            loggedinUsername:request.session.userName
         });
+        
     }
     else {
+        console.log("Debugging Name: session concept is failing.");
         response.send({
             isLoggedIn: "NotLoggedin"
         })
