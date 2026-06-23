@@ -55,9 +55,8 @@ li {
     border-radius: 10px;
 }
 
-.productInsertionStatus,
 .signupResult {
-    display: none;
+    /* display: none; */
     text-align: center;
     color: red;
     font-size: large;
@@ -540,7 +539,10 @@ li {
 
     font-weight: bold;
     cursor: pointer;
+    display: none;
 }
+
+
 
 .header-actions a {
     color: white;
@@ -1188,9 +1190,6 @@ body.modal-open .modal * {
 /* ✅ FIX: Input always visible */
 .chatInputWrapper {
     display: flex;
-
-    position: sticky;
-    bottom: 0;
 
     background: white;
     padding-top: 5px;
@@ -1908,4 +1907,29 @@ main {
 .adminWrapper .lastMsg {
     font-size: 12px;
     color: #666;
+}
+.chatSection {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;  /* ✅ IMPORTANT */
+}#chatBox {
+    flex: 1;               /* ✅ take remaining space */
+    overflow-y: auto;
+
+    padding: 10px;
+    padding-bottom: 60px;  /* ✅ SPACE FOR INPUT ✅ */
+
+    background: #e5ddd5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}.chatInputWrapper {
+    display: flex;
+
+    height: 50px;           /* ✅ fixed height */
+    background: white;
+
+    border-top: 1px solid #ddd;
 }

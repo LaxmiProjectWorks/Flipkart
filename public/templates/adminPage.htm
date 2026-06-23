@@ -58,19 +58,37 @@
         <div class="admin-form-container">
             <h4>Product Form</h4>
             <ul>
-                <li>Product Name:<input type="text"></li>
-                <li>Price:<input type="text"></li>
+                <li>Product Name:<input type="text" id="product_title"></li>
+
+                <li>Price:<input type="text" id="product_price"></li>
+
                 <li>
                     Category:
-                    <select>
+                    <select id="product_category">
+                        <option value="">Select</option>
                         <option>Jewellery</option>
                         <option>Electronics</option>
+                        <option>Men's Clothing</option>
+                        <option>Women's Clothing</option>
                     </select>
                 </li>
-                <li>Rating:<input type="number"></li>
-                <li>Description:<textarea></textarea></li>
-                <li>Image:<input type="file"></li>
-                <li><button>Add Details</button></li>
+
+                <li>Rating:<input type="number" id="product_rating"></li>
+
+                <li>Description:<textarea id="product_description"></textarea></li>
+
+                <li>Image:<input type="file" id="product_image"></li>
+
+                <li>
+                    <button onclick="addNewProductDataIntoDB()">Add Details</button>
+                </li>
+                <li>
+                    <a href="#" onclick="selectedPageLoader('login')">Login</a>
+                    <a href="#" onclick="selectedPageLoader('signup')">Signup</a>
+                </li>
+
+
+                <li class="productInsertionStatus"></li>
             </ul>
         </div>
 
@@ -85,7 +103,7 @@
                 <h3>
                     <i class="fa-solid fa-headset"></i>Active Chats
                 </h3>
-                <span class="userCount">4 Users</span>
+                <span class="userCount"></span>
             </div>
 
             <!-- USER LIST -->
@@ -97,8 +115,10 @@
         <div id="chatView">
 
             <div class="chatHeader">
-                <span class="backBtn" onclick="goBack()">← Back</span>
-                <span id="chatUserName">Select a user</span>
+                <span class="backBtn" onclick="goBack()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </span>
+                <span id="chatUserName">Customer Support</span>
             </div>
 
             <div id="chatBox"></div>

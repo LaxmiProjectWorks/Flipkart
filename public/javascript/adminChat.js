@@ -1,19 +1,6 @@
-// ✅ listen for live updates
-socket.on("updateUserList", (usersList) => {
-
-    console.log("Live users:", usersList);
-
-    renderUsers(usersList);
-
-    // update count
-    const count = document.querySelector(".userCount");
-    if (count) {
-        count.innerText = usersList.length + " Users";
-    }
-});
-
 let selectedUser = null;
 
+// ✅ render users (IMPORTANT: use emailID)
 function renderUsers(users) {
 
     const container = document.querySelector(".userList");
@@ -24,32 +11,39 @@ function renderUsers(users) {
         const div = document.createElement("div");
         div.className = "userItem";
 
-        const initial = user.name.charAt(0);
+        // ✅ FIX DATA MAPPING
+        const email = user.emailID || user._id;
+        const name = user.name || user.senderName;
+
+        div.dataset.email = email;
+
+        const initial = name.charAt(0);
 
         div.innerHTML = `
             <div class="avatar">${initial}</div>
             <div class="userText">
-                <div class="userName">${user.name}</div>
-                <div class="lastMsg">Click to start chat</div>
+                <div class="userName">${name}</div>
+                <div class="lastMsg">${user.lastMessage || "Click to start chat"}</div>
             </div>
         `;
 
-        div.onclick = () => selectUser(user, div);
+        div.onclick = () => selectUser({ emailID: email, name: name });
 
         container.appendChild(div);
     });
 }
 
-
-function selectUser(user, element) {
+function selectUser(user) {
 
     selectedUser = user;
 
-    // ✅ JOIN USER ROOM
-    const roomId = "chat_" + user.name;
+    // ✅ ✅ USE EMAIL (CRITICAL FIX)
+    const roomId = "chat_" + user.emailID;
     socket.emit("joinRoom", roomId);
 
-    // ✅ SWITCH VIEW
+    // ✅ LOAD HISTORY
+    loadChatHistory(roomId);
+
     document.getElementById("userListView").classList.remove("activeView");
     document.getElementById("chatView").classList.add("activeView");
 
@@ -65,21 +59,19 @@ function sendAdminMessage() {
 
     if (!message) return;
 
-    let roomId;
-
-    if (userId === "Admin") {
-        if (!selectedUser) {
-            alert("Select a user");
-            return;
-        }
-        roomId = "chat_" + selectedUser.name;
-    } else {
-        roomId = "chat_" + userId;
+    if (!selectedUser) {
+        alert("Select a user");
+        return;
     }
+
+    // ✅ ✅ USE EMAIL HERE ALSO
+    const roomId = "chat_" + selectedUser.emailID;
 
     socket.emit("sendMessage", {
         roomId: roomId,
-        sender: userId,
+        senderId: userEmail,   // ✅ FIXED
+        senderName: userId,
+        receiverId: selectedUser.emailID,
         message: message
     });
 
@@ -102,8 +94,34 @@ function goBack() {
     document.getElementById("chatView").classList.remove("activeView");
     document.getElementById("userListView").classList.add("activeView");
 }
+function initAdminChat() {
 
+    console.log("✅ Admin chat initialized");
 
+    loadAllChatUsers();  // ✅ ADD THIS
 
+    socket.on("updateUserList", (onlineUsers) => {
 
+    document.querySelectorAll(".userItem").forEach(item => {
+
+        const email = item.dataset.email;
+
+        const isOnline = onlineUsers.some(u => u.emailID === email);
+
+        item.classList.toggle("online", isOnline);
+    });
+});
+}
+
+function loadAllChatUsers() {
+
+    axios.get("/getAllChatUsersFromDB/getAllChatUsers")
+        .then(res => {
+
+            console.log("DB users:", res.data);
+
+            renderUsers(res.data);  // ✅ SAME FUNCTION
+        })
+        .catch(err => console.log(err));
+}
 

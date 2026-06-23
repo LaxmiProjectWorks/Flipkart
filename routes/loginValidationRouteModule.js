@@ -5,44 +5,77 @@ var { MongoClient } = require("mongodb");
 var client = new MongoClient("mongodb://localhost:27017");
 
 
-router.post("/loginValidation", (req, res) => {
-    console.log("I am loginValidation POST route/endpoint");
+router.post("/loginValidation", async (req, res) => {
+
+    console.log("Login API called");
     console.log(req.body);
-    var responseData = {};
-    authenticateUser(req.body.username, req.body.password).then((authenticateUserResponse) => {
-        if (authenticateUserResponse.validUser) {
+
+    let responseData = {};
+
+    try {
+        const authResponse = await authenticateUser(req.body.emailID, req.body.password);
+
+        if (authResponse.validUser) {
+
+            console.log("Controller came inside");
+
+            const user = authResponse.user;
+
             responseData.msg = "Success";
-            req.session.isUserLoggedIn=true;
-            req.session.userName=req.body.username;
             
-            if(authenticateUserResponse.isAdmin){
-                responseData.userType="admin";
-            }else{
-                responseData.userType="customer";
-            }
-            
+            responseData.userType = (user.isAdmin === "true") ? "admin" : "customer";
+
+            //STORE USER IN SESSION
+            req.session.isUserLoggedIn = true;
+
+            req.session.user = {
+                id: user._id,
+                name: user.username,
+                emailID: user.mail,
+                isAdmin: (user.isAdmin === "true")  
+            };
         } else {
-            console.log("Fail Block executed");
             responseData.msg = "Fail";
         }
-        res.send(responseData);
-    });
+
+    } catch (err) {
+        console.error("Login error:", err);
+        responseData.msg = "Error";
+    }
+
+    res.send(responseData);
 });
 
-async function authenticateUser(username, password, isValid) {
+async function authenticateUser(emailID, password) {
+
     await client.connect();
-    console.log("Connection established successfully.");
-    var db = client.db("flipkart");
-    var collection = db.collection("user_details");
-    var result = await collection.find({ username: username }).toArray();
-    console.log("authenticateUserResponse: ",result);
-    var authenticateUserResponse = {};
-    if (result.length == 1) {
-        var isValid = await bcrypt.compare(password, result[0].password);
-        authenticateUserResponse.validUser = isValid; 
-        authenticateUserResponse.isAdmin = result[0].isAdmin;
+
+    const db = client.db("flipkart");
+    const collection = db.collection("user_details");
+
+    const user = await collection.findOne({ mail: emailID });
+
+    console.log("Printing DB data User:", user);
+
+    let response = {
+        validUser: false,
+        user: null
+    };
+
+    if (!user) {
+        console.log("User not found in DB");
+        return response;
     }
-    return authenticateUserResponse;
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (isValid) {
+        response.validUser = true;
+        response.user = user;
+    }
+
+    return response;
+
 }
 
 // we kept get request for understanding the concept we are not using this request in this file.

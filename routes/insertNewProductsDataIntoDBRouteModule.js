@@ -43,20 +43,18 @@ router.post("/addProducts", upload.single("image"), async (req, res) => {
             id: newId,
             title: req.body.title,
 
-            // ✅ convert to number
             price: parseInt(req.body.price),
 
             category: (req.body.category).toLowerCase(),
 
             description: req.body.description,
 
-            // ✅ FIX: change imagePath → image
+            //change imagePath → image
             image: req.file ? `http://localhost:3000/newProductUploadImages/${req.file.filename}` : null,
 
-            // ✅ FIX: proper rating structure
             rating: {
-                rate: parseInt(req.body.rating),   // number
-                count: 0   // default value
+                rate: parseInt(req.body.rating),   
+                count: 0   
             }
         };
 console.log("Printing filename: ",req.file.filename);

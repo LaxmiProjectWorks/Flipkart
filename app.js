@@ -14,14 +14,15 @@ var getProductCategoriesRouter= require("./routes/getProductCategoriesRouteModul
 var insertNewProductsDataIntoDB= require("./routes/insertNewProductsDataIntoDBRouteModule");
 var checkUserLoginSession= require("./routes/checkUserLoginSessionRouteModule");
 var getLoggedinUsername= require("./routes/getLoggedinUsername");
+var getChatHistoryRouter= require("./routes/getChatHistory");
+var getAllChatUsersRoute= require("./routes/getAllChatUsers");
 
 var app = express();
 
 app.use(session({
-  secret:'mySecretKey123',
-  cookie:{
-    maxAge:50000
-  }
+    secret: "yourSecretKey",
+    resave: false,             
+    saveUninitialized: false 
 }));
 
 // view engine setup
@@ -43,6 +44,8 @@ app.use("/getProductCategories",getProductCategoriesRouter);
 app.use("/insertNewProducts",insertNewProductsDataIntoDB);
 app.use("/checkUserLoginSession",checkUserLoginSession);
 app.use("/getLoggedinUsername",getLoggedinUsername);
+app.use("/getChatHistory",getChatHistoryRouter);
+app.use("/getAllChatUsersFromDB",getAllChatUsersRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

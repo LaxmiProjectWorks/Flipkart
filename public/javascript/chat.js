@@ -1,122 +1,93 @@
 const socket = io();
 
 let userId = "";
+let userEmail = "";   
 let roomId = "";
 
-// ✅ ✅ ADD THIS HERE ✅ ✅
 socket.on("connect", () => {
-    console.log("Socket connected/reconnected:", socket.id);
 
-    if (userId) {
+    console.log("Socket connected:", socket.id);
+
+    if (userEmail) {
+
         socket.emit("userOnline", {
-            id: userId,
-            name: userId
+            id: userEmail,
+            name: userId,
+            emailID: userEmail
         });
+
+        const room = "chat_" + userEmail;
+
+        socket.emit("joinRoom", room);
+
+        console.log("Rejoined room:", room);
     }
 });
 
-// ✅ existing listener
-socket.off("receiveMessage");
+if (!socket.hasReceiveListener) {
 
-socket.on("receiveMessage", (data) => {
-    const chatBox = document.getElementById("chatBox");
+    socket.on("receiveMessage", (data) => {
 
-    if (!chatBox) return;
+        const chatBox = document.getElementById("chatBox");
+        if (!chatBox) {
+            console.warn("chatBox not ready");
+            return;
+        }
 
-    const div = document.createElement("div");
+        console.log("Message received:", data);
 
-    if (data.sender === userId) {
-        div.classList.add("myMessage");
-    } else {
-        div.classList.add("otherMessage");
-    }
+        const div = document.createElement("div");
 
-    div.innerText = data.message;
-    chatBox.appendChild(div);
+        if (data.senderId === userEmail) {
+            div.classList.add("myMessage");
+        } else {
+            div.classList.add("otherMessage");
+        }
 
-    chatBox.scrollTop = chatBox.scrollHeight;
-});
+        div.innerText = data.message;
+        chatBox.appendChild(div);
 
-// function getLoggedinUserName() {
-//     axios.post("/getLoggedinUsername/getUserName")
-//         .then(function (response) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
 
-//             if (!socket.connected) {
-//                 socket.connect();   // ✅ reconnect socket
-//             }
-
-//             console.log("Socket connected?", socket.connected);
-//             if (!response.data || !response.data.username) {
-//                 console.error("Invalid response from server");
-//                 return;
-//             }
-
-//             userId = response.data.username;
-
-//             // ✅ Defensive check
-//             if (userId === "invalidUser") {
-//                 alert("Session expired. Please login again.");
-//                 return;
-//             }
-
-//             console.log("User:", userId);
-
-
-//             // ✅ ✅ ✅ ADD THIS HERE (VERY IMPORTANT)
-//             socket.emit("userOnline", {
-//                 id: userId,
-//                 name: userId
-//             });
-//             // ✅ ✅ ✅ END
-
-
-//             if (userId === "Admin") {
-//                 // admin will NOT use prompt anymore
-//                 console.log("Admin ready to receive chats");
-//             } else {
-//                 // ✅ USER always connects to own room
-//                 roomId = "chat_" + userId;
-
-//                 socket.emit("joinRoom", roomId);
-//             }
-
-//         })
-//         .catch(err => {
-//             console.error("Error fetching username:", err);
-//         });
-// }
+    socket.hasReceiveListener = true;   
+}
 
 function getLoggedinUserName() {
+
     axios.post("/getLoggedinUsername/getUserName")
         .then(function (response) {
 
-            userId = response.data.username;
+            if (response.data.name === "invalidUser") return;
 
-            if (userId === "invalidUser") return;
+            userId = response.data.name;
+            userEmail = response.data.emailID;
 
-            console.log("User:", userId);
+            console.log("User fetched:", userId, userEmail);
 
-            // ✅ reconnect if needed
             if (!socket.connected) {
                 socket.connect();
             }
 
-            // ✅ notify server
-            socket.emit("userOnline", {
-                id: userId,
-                name: userId
-            });
+            setTimeout(() => {
 
-            // ✅ ✅ IMPORTANT: JOIN ROOM AGAIN
-            if (userId !== "Admin") {
-                roomId = "chat_" + userId;
+                console.log("Emitting userOnline NOW");
+
+                socket.emit("userOnline", {
+                    id: userEmail,
+                    name: userId,
+                    emailID: userEmail
+                });
+               
+                roomId = "chat_" + userEmail;
                 socket.emit("joinRoom", roomId);
-            }
+                loadChatHistory(roomId);
 
+                console.log("Joined own room:", roomId);
+
+            }, 200);
         });
 }
-
-
 
 function sendUserMessage() {
     const messageInput = document.getElementById("messageInput");
@@ -127,42 +98,56 @@ function sendUserMessage() {
 
     let sendRoom;
 
-    if (userId === "Admin") {
+    if (userEmail === "admin@gmail.com") {
+
         if (!selectedUser) {
             alert("Select a user");
             return;
         }
-        sendRoom = "chat_" + selectedUser.name;
+
+        sendRoom = "chat_" + selectedUser.emailID;   
+
     } else {
-        sendRoom = "chat_" + userId;
+
+        sendRoom = "chat_" + userEmail;   
     }
 
     socket.emit("sendMessage", {
         roomId: sendRoom,
-        sender: userId,
+        senderId: userEmail,             
+        senderName: userId,              
+        receiverId: selectedUser ? selectedUser.emailID : "admin",
         message: message
     });
 
     messageInput.value = "";
 }
 
-// // ✅ Receive messages
-// socket.on("receiveMessage", (data) => {
-//     const chatBox = document.getElementById("chatBox");
+function loadChatHistory(roomId) {
 
-//     const div = document.createElement("div");
+    axios.post("/getChatHistory/getChatHistoryFromDB", { roomId })
+        .then((response) => {
 
-//     // ✅ Identify message type
-//     if (data.sender === userId) {
-//         div.classList.add("myMessage");
-//     } else {
-//         div.classList.add("otherMessage");
-//     }
+            const chatBox = document.getElementById("chatBox");
+            if (!chatBox) return;
 
-//     div.innerText = data.message;
+            chatBox.innerHTML = ""; // clear old
 
-//     chatBox.appendChild(div);
+            response.data.forEach(msg => {
 
-//     // ✅ Auto scroll
-//     chatBox.scrollTop = chatBox.scrollHeight;
-// });
+                const div = document.createElement("div");
+
+                if (msg.senderId === userEmail) {
+                    div.classList.add("myMessage");
+                } else {
+                    div.classList.add("otherMessage");
+                }
+
+                div.innerText = msg.message;
+                chatBox.appendChild(div);
+            });
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+        });
+}

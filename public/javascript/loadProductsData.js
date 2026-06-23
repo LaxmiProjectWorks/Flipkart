@@ -1,17 +1,17 @@
 var hbtemplate;
 var productDetailsList = [];
-var productDataUrl="/getProductDetails/products";
+var productDataUrl = "/getProductDetails/products";
 var loadProductsData = (event) => {
-    
-    var categoryType=(event!=undefined)?event.target.innerText:"All Products";
+
+    var categoryType = (event != undefined) ? event.target.innerText : "All Products";
     axios({
         method: "POST",
         //url: "https://fakestoreapi.com/products", // To get the data from the external service
-        url:productDataUrl,
-        data:{category:categoryType}
+        url: productDataUrl,
+        data: { category: categoryType }
     }).then(function (response) {
-        
-        console.log("loadProductsData response printing: ",response.data);
+
+        console.log("loadProductsData response printing: ", response.data);
         productDetailsList = response.data;
         showProductsData();
     }).catch(function (error) {
@@ -22,13 +22,17 @@ var loadProductsData = (event) => {
 }
 
 var showProductsData = () => {
-    var productContainer= document.querySelector(".productsContainer");
+    var productContainer = document.querySelector(".productsContainer");
     productContainer.replaceChildren();
-    for(var i=0;i<productDetailsList.length;i++){
-         var pTemplate= hbtemplate(productDetailsList[i]);
-         productContainer.insertAdjacentHTML("beforeend", pTemplate);
-         var idVal= "rating_"+productDetailsList[i].id;
-        ratingStarGenerator(idVal,productDetailsList[i].rating.rate||0);
+    for (var i = 0; i < productDetailsList.length; i++) {
+
+        console.log("Rating data:", productDetailsList[i]);
+
+        var pTemplate = hbtemplate(productDetailsList[i]);
+        productContainer.insertAdjacentHTML("beforeend", pTemplate);
+        var idVal = "rating_" + productDetailsList[i].id;
+        var ratingValue = (productDetailsList[i].rating && productDetailsList[i].rating.rate) || 0;
+        ratingStarGenerator(idVal, ratingValue);
     }
 }
 
@@ -36,7 +40,7 @@ loadProductCardTemplate = () => {
     axios.get("templates/productCard.htm")
         .then(function (response) {
             console.log(response);
-            hbtemplate = Handlebars.compile(response.data); 
+            hbtemplate = Handlebars.compile(response.data);
         }).catch(function (error) {
             console.log(error);
         }).finally(function () {

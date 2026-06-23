@@ -2,21 +2,26 @@ var express = require('express');
 var router = express.Router();
 
 router.post("/isLoggedin", (request, response) => {
-    console.log("Serious Matter: ",request.session.isUserLoggedIn,request.session.userName);
+
+    console.log("Serious Matter: ", request.session.isUserLoggedIn, request.session.user);
+
     if (request.session.isUserLoggedIn) {
+
         response.send({
-            isLoggedIn: "Loggedin",
-            loggedinUsername:request.session.userName
+            isLoggedIn: "Loggedin", 
+            name: request.session.user.name,
+            emailID: request.session.user.emailID
         });
-        
-    }
-    else {
+
+    } else {
+
         console.log("Debugging Name: session concept is failing.");
+
         response.send({
             isLoggedIn: "NotLoggedin"
-        })
+        });
     }
-})
+});
 
 router.post("/loggedOut", (request, response) => {
 
@@ -28,7 +33,7 @@ router.post("/loggedOut", (request, response) => {
                 isSessionDestroyed: "failed"
             });
         }
-        
+
 
         response.json({
             isSessionDestroyed: "sessionDestroyed"

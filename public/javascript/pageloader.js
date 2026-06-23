@@ -1,6 +1,6 @@
-// const socket = io();
-
 var selectedPageLoader = (type) => {
+
+    localStorage.setItem("lastPage", type);
 
     var templateURL;
     switch (type) {
@@ -40,26 +40,42 @@ var loadTemplateData = (loginTemplateURL, type) => {
                 loadProductCategories();
                 getLoggedinUserName();
             } else if (type == "adminPage") {
-                getLoggedinUserName();
+                setTimeout(() => {
+                    console.log("Calling getLoggedinUserName (admin)");
+
+                    getLoggedinUserName();
+                    initAdminChat();
+                }, 300);   
             }
-            
-        }).catch(function (error) {
-            console.log(error);
-        }).finally(function () {
-            console.log("Data Fetching Execution Completed.");
-        })
+        else if (type == "login") {
+    loadSavedCredentials();
+}
+
+        }).catch (function (error) {
+    console.log(error);
+}).finally(function () {
+    console.log("Data Fetching Execution Completed.");
+})
 }
 
 axios.post("http://localhost:3000/checkUserLoginSession/isLoggedin").then((response) => {
     if (response.data.isLoggedIn == "Loggedin") {
-        selectedPageLoader("productsPage");
-    }
-    else {
+
+        const lastPage = localStorage.getItem("lastPage");
+
+        if (lastPage) {
+            selectedPageLoader(lastPage);   
+        } else {
+            selectedPageLoader("productsPage"); 
+        }
+
+    } else {
         selectedPageLoader("login");
     }
+
 }).catch(function (error) {
     console.log(error);
-    //selectedPageLoader("login");
+    selectedPageLoader("login");
 }).finally(function () {
     console.log("checkUserLoginSession Fetch API called");
 });
@@ -67,6 +83,10 @@ axios.post("http://localhost:3000/checkUserLoginSession/isLoggedin").then((respo
 var userloggingOut = () => {
 
     socket.disconnect();
+
+    document.querySelector(".logout-btn").style.display="none";
+
+    localStorage.removeItem("lastPage");
 
     axios.post("checkUserLoginSession/loggedOut").then(function (response) {
         console.log("Controller came to frontend.");
@@ -76,9 +96,30 @@ var userloggingOut = () => {
         }
     }).catch(function (error) {
         console.log(error);
-        //selectedPageLoader("login");
+        selectedPageLoader("login");
     }).finally(function () {
         console.log("checkUserLoginSession Fetch API called");
     });
 };
+
+function loadSavedCredentials() {
+
+    const rememberMe = localStorage.getItem("rememberMe");
+
+    if (rememberMe === "true") {
+
+        const savedEmail = localStorage.getItem("savedEmail");
+        const savedPassword = localStorage.getItem("savedPassword");
+
+        if (savedEmail) {
+            document.getElementById("emailID").value = savedEmail;
+        }
+
+        if (savedPassword) {
+            document.getElementById("password").value = savedPassword;
+        }
+
+        document.getElementById("rememberCredentials").checked = true;
+    }
+}
 
