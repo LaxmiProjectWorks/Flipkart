@@ -11,7 +11,7 @@ var loadProductCategories = () => {
         productCategoriesList = response.data;
         showCategories();
     }).catch(function (error) {
-        console.log("Failing at loadProductCategories()")
+        console.log("Failing at loadProductCategories()");
         console.log(error);
     }).finally(function () {
         console.log("loadProductCategories function execution completed.")

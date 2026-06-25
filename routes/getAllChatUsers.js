@@ -14,7 +14,7 @@ router.get("/getAllChatUsers", async (req, res) => {
             }
         },
         {
-            $sort: { _id: -1 }   // ✅ FIX HERE ✅
+            $sort: { _id: -1 }  
         },
         {
             $group: {

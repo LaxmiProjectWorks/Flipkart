@@ -94,23 +94,72 @@ function goBack() {
     document.getElementById("chatView").classList.remove("activeView");
     document.getElementById("userListView").classList.add("activeView");
 }
+
 function initAdminChat() {
 
     console.log("✅ Admin chat initialized");
 
-    loadAllChatUsers();  // ✅ ADD THIS
 
+    // ✅ ✅ ADD HERE (VERY IMPORTANT)
+    socket.emit("joinRoom", "chat_admin@gmail.com");
+
+    loadAllChatUsers();  // ✅ initial load
+
+    // ✅ ✅ ADD YOUR NEW CODE HERE 👇
+    socket.on("receiveMessage", (data) => {
+
+        console.log("New message received:", data);
+
+        const container = document.querySelector(".userList");
+
+        const exists = Array.from(container.children).some(item =>
+            item.dataset.email === data.senderId
+        );
+
+        if (exists) {
+            // ✅ Existing user → reload full list
+            loadAllChatUsers();
+        } else {
+            // ✅ New user → add instantly
+            const newUser = {
+                emailID: data.senderId,
+                name: data.senderName,
+                lastMessage: data.message
+            };
+
+            // ✅ ADD NEW USER AT TOP
+            const div = document.createElement("div");
+
+            div.className = "userItem";
+            div.dataset.email = newUser.emailID;
+
+            div.innerHTML = `
+                <div class="avatar">${newUser.name.charAt(0)}</div>
+                <div class="userText">
+                    <div class="userName">${newUser.name}</div>
+                    <div class="lastMsg">${newUser.lastMessage}</div>
+                </div>
+            `;
+
+            container.prepend(div);   // ✅ show immediately
+
+            // ✅ Sync with DB after
+            loadAllChatUsers();
+        }
+    });
+
+    // ✅ Existing online status logic
     socket.on("updateUserList", (onlineUsers) => {
 
-    document.querySelectorAll(".userItem").forEach(item => {
+        document.querySelectorAll(".userItem").forEach(item => {
 
-        const email = item.dataset.email;
+            const email = item.dataset.email;
 
-        const isOnline = onlineUsers.some(u => u.emailID === email);
+            const isOnline = onlineUsers.some(u => u.emailID === email);
 
-        item.classList.toggle("online", isOnline);
+            item.classList.toggle("online", isOnline);
+        });
     });
-});
 }
 
 function loadAllChatUsers() {

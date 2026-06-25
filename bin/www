@@ -59,44 +59,52 @@ io.on("connection", (socket) => {
 
   });
 
-  
+
 
   // JOIN ROOM
   socket.on("sendMessage", async (data) => {
 
-  const { roomId, senderId, senderName, receiverId, message } = data;
+    const { roomId, senderId, senderName, receiverId, message } = data;
 
-  // ✅ SAVE TO DB
-  const db = client.db("flipkart");
-  const collection = db.collection("chat_messages");
+    // ✅ SAVE TO DB
+    const db = client.db("flipkart");
+    const collection = db.collection("chat_messages");
 
-  await collection.insertOne({
-    senderId,
-    senderName,
-    receiverId,
-    message,
-    roomId,
-    timestamp: new Date()
+    await collection.insertOne({
+      senderId,
+      senderName,
+      receiverId,
+      message,
+      roomId,
+      timestamp: new Date()
+    });
+
+    // ✅ SEND REAL-TIME TO USER ROOM
+    io.to(roomId).emit("receiveMessage", {
+      senderId,
+      senderName,
+      message
+    });
+
+    // ✅ 🔥 ADD THIS LINE HERE (IMPORTANT)
+    io.to("chat_admin@gmail.com").emit("receiveMessage", {
+      senderId,
+      senderName,
+      message
+    });
+
+
+    console.log("💾 Saved & Sent:", message);
   });
-
-  // ✅ SEND REAL-TIME
-  io.to(roomId).emit("receiveMessage", {
-    senderId,
-    senderName,
-    message
-  });
-
-  console.log("💾 Saved & Sent:", message);
-});
 
 
   // ✅ JOIN ROOM (MISSING PIECE)
-socket.on("joinRoom", (roomId) => {
+  socket.on("joinRoom", (roomId) => {
 
-  socket.join(roomId);
+    socket.join(roomId);
 
-  console.log("✅ Joined room:", roomId);
-});
+    console.log("✅ Joined room:", roomId);
+  });
 
 
 
