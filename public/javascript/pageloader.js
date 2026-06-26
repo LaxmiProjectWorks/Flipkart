@@ -68,6 +68,7 @@ axios.post("http://localhost:3000/checkUserLoginSession/isLoggedin").then((respo
         } else {
             selectedPageLoader("productsPage"); 
         }
+        document.querySelector(".logout-btn").style.display="block";
 
     } else {
         selectedPageLoader("login");

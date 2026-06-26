@@ -1,14 +1,14 @@
 const socket = io();
 
 let userId = "";
-let userEmail = "";   
+let userEmail = "";
 let roomId = "";
 
 socket.on("connect", () => {
 
     console.log("Socket connected:", socket.id);
 
-    if (userEmail) {
+    if (userEmail && !socket.hasJoinedRoom) {
 
         socket.emit("userOnline", {
             id: userEmail,
@@ -16,26 +16,54 @@ socket.on("connect", () => {
             emailID: userEmail
         });
 
-        const room = "chat_" + userEmail;
+        // const room = "chat_" + userEmail;
 
-        socket.emit("joinRoom", room);
+        // socket.emit("joinRoom", room);
 
-        console.log("Rejoined room:", room);
+        // console.log("Rejoined room:", room);
+
+
+        socket.emit("joinRoom", "chat_" + userEmail);
+        socket.hasJoinedRoom = true;
+
+        console.log("Rejoined room once");
+
     }
 });
+
+let lastMessageKey = "";
 
 if (!socket.hasReceiveListener) {
 
     socket.on("receiveMessage", (data) => {
 
+        console.log("🔥 Incoming:", data);
+
         const chatBox = document.getElementById("chatBox");
-        if (!chatBox) {
-            console.warn("chatBox not ready");
+        if (!chatBox) return;
+
+        // ✅ ONLY SHOW CURRENT CHAT MESSAGES
+        if (selectedUser) {
+
+            const isCurrentChat =
+                (data.senderId === selectedUser.emailID && userEmail === data.receiverId) ||
+                (data.senderId === userEmail && data.receiverId === selectedUser.emailID);
+
+            if (!isCurrentChat) return;
+        }
+
+
+        // ✅ DEDUPLICATION
+        const messageKey = data.senderId + "_" + data.message;
+
+        if (lastMessageKey === messageKey) {
+            console.log("⚠️ Skipping duplicate");
             return;
         }
 
-        console.log("Message received:", data);
+        lastMessageKey = messageKey;
 
+        // ✅ RENDER MESSAGE
         const div = document.createElement("div");
 
         if (data.senderId === userEmail) {
@@ -50,7 +78,7 @@ if (!socket.hasReceiveListener) {
         chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    socket.hasReceiveListener = true;   
+    socket.hasReceiveListener = true;
 }
 
 function getLoggedinUserName() {
@@ -78,9 +106,12 @@ function getLoggedinUserName() {
                     name: userId,
                     emailID: userEmail
                 });
-               
+
                 roomId = "chat_" + userEmail;
-                socket.emit("joinRoom", roomId);
+                if (!socket.hasJoinedRoom) {
+                    socket.emit("joinRoom", roomId);
+                    socket.hasJoinedRoom = true;
+                }
                 loadChatHistory(roomId);
 
                 console.log("Joined own room:", roomId);
@@ -105,17 +136,17 @@ function sendUserMessage() {
             return;
         }
 
-        sendRoom = "chat_" + selectedUser.emailID;   
+        sendRoom = "chat_" + selectedUser.emailID;
 
     } else {
 
-        sendRoom = "chat_" + userEmail;   
+        sendRoom = "chat_" + userEmail;
     }
 
     socket.emit("sendMessage", {
         roomId: sendRoom,
-        senderId: userEmail,             
-        senderName: userId,              
+        senderId: userEmail,
+        senderName: userId,
         receiverId: selectedUser ? selectedUser.emailID : "admin",
         message: message
     });

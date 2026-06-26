@@ -79,19 +79,21 @@ io.on("connection", (socket) => {
       timestamp: new Date()
     });
 
-    // ✅ SEND REAL-TIME TO USER ROOM
-    io.to(roomId).emit("receiveMessage", {
-      senderId,
-      senderName,
-      message
-    });
+    // ✅ send to user room
+io.to(roomId).emit("receiveMessage", {
+  senderId,
+  senderName,
+  receiverId,
+  message
+});
 
-    // ✅ 🔥 ADD THIS LINE HERE (IMPORTANT)
-    io.to("chat_admin@gmail.com").emit("receiveMessage", {
-      senderId,
-      senderName,
-      message
-    });
+// ✅ ALSO send to admin room (IMPORTANT FIX)
+io.to("chat_admin@gmail.com").emit("receiveMessage", {
+  senderId,
+  senderName,
+  receiverId,
+  message
+});
 
 
     console.log("💾 Saved & Sent:", message);

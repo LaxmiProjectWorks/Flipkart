@@ -4,6 +4,9 @@ var productDataUrl = "/getProductDetails/products";
 var loadProductsData = (event) => {
 
     var categoryType = (event != undefined) ? event.target.innerText : "All Products";
+    if(event){
+        console.log("Checking Jewellery Issue: ",event.target.innerText);
+    }
     axios({
         method: "POST",
         //url: "https://fakestoreapi.com/products", // To get the data from the external service

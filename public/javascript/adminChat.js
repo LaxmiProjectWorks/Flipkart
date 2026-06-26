@@ -99,78 +99,40 @@ function initAdminChat() {
 
     console.log("✅ Admin chat initialized");
 
-
-    // ✅ ✅ ADD HERE (VERY IMPORTANT)
     socket.emit("joinRoom", "chat_admin@gmail.com");
 
-    loadAllChatUsers();  // ✅ initial load
+    loadAllChatUsers();
 
-    // ✅ ✅ ADD YOUR NEW CODE HERE 👇
-    socket.on("receiveMessage", (data) => {
+    // ✅ NEW FIX: listen for incoming user messages
+    if (!socket.hasAdminListener) {
 
-        console.log("New message received:", data);
+        socket.on("receiveMessage", (data) => {
 
-        const container = document.querySelector(".userList");
+            console.log("👀 Admin received:", data);
 
-        const exists = Array.from(container.children).some(item =>
-            item.dataset.email === data.senderId
-        );
+            // ✅ join that user's room dynamically
+            const userRoom = "chat_" + data.senderId;
+            socket.emit("joinRoom", userRoom);
 
-        if (exists) {
-            // ✅ Existing user → reload full list
+            console.log("✅ Admin auto-joined:", userRoom);
+
+            // ✅ refresh user list
             loadAllChatUsers();
-        } else {
-            // ✅ New user → add instantly
-            const newUser = {
-                emailID: data.senderId,
-                name: data.senderName,
-                lastMessage: data.message
-            };
-
-            // ✅ ADD NEW USER AT TOP
-            const div = document.createElement("div");
-
-            div.className = "userItem";
-            div.dataset.email = newUser.emailID;
-
-            div.innerHTML = `
-                <div class="avatar">${newUser.name.charAt(0)}</div>
-                <div class="userText">
-                    <div class="userName">${newUser.name}</div>
-                    <div class="lastMsg">${newUser.lastMessage}</div>
-                </div>
-            `;
-
-            container.prepend(div);   // ✅ show immediately
-
-            // ✅ Sync with DB after
-            loadAllChatUsers();
-        }
-    });
-
-    // ✅ Existing online status logic
-    socket.on("updateUserList", (onlineUsers) => {
-
-        document.querySelectorAll(".userItem").forEach(item => {
-
-            const email = item.dataset.email;
-
-            const isOnline = onlineUsers.some(u => u.emailID === email);
-
-            item.classList.toggle("online", isOnline);
         });
-    });
+
+        socket.hasAdminListener = true;
+    }
 }
 
-function loadAllChatUsers() {
+    function loadAllChatUsers() {
 
-    axios.get("/getAllChatUsersFromDB/getAllChatUsers")
-        .then(res => {
+        axios.get("/getAllChatUsersFromDB/getAllChatUsers")
+            .then(res => {
 
-            console.log("DB users:", res.data);
+                console.log("DB users:", res.data);
 
-            renderUsers(res.data);  // ✅ SAME FUNCTION
-        })
-        .catch(err => console.log(err));
-}
+                renderUsers(res.data);  // ✅ SAME FUNCTION
+            })
+            .catch(err => console.log(err));
+    }
 
